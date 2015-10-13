@@ -1,0 +1,4 @@
+# Hoops Guru .gitignore File
+# 
+# Ignore pycache
+__pycache__
