@@ -2,20 +2,21 @@
 
 import sqlite3
 
-class DB: # generic DB connection
-	def __init__(self, db_name): # create a new DB
-		self.db_object = sqlite3.connect(db_name)
-		self.cursor = self.db_object.cursor()
-		self.name = db_name
-	
-	def close(self):
-		self.db_object.close()
-		
-	def initRoster(self):
-		# create table for players
-		# ID is the unique identifier for each player
-		# every player to ever exist in a game has a unique id (they are not reassigned after retirement)
-		self.cursor.execute('''
+
+class DB:  # generic DB connection
+    def __init__(self, db_name):  # create a new DB
+        self.db_object = sqlite3.connect(db_name)
+        self.cursor = self.db_object.cursor()
+        self.name = db_name
+
+    def close(self):
+        self.db_object.close()
+
+    def initRoster(self):
+        # create table for players
+        # ID is the unique identifier for each player
+        # every player to ever exist in a game has a unique id (they are not reassigned after retirement)
+        self.cursor.execute('''
 						CREATE TABLE players
 						(ID integer PRIMARY KEY NOT NULL, fnm text, lst text, tm text, tmp text, ps1 integer, ps2 integer,
 						 age integer, hgt integer, wgt integer, wng integer, fat integer, mot integer,
@@ -28,5 +29,5 @@ class DB: # generic DB connection
 						 ldr integer
 						 )
 				''')
-				
-		self.db_object.commit()
+
+        self.db_object.commit()
