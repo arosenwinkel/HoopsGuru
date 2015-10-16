@@ -26,12 +26,9 @@ class Player:
         self.tal = 50
         self.int = 50
 
-    def create(self, db, id):  # create a player of a given id, write into the DB
-        pass
-
-    def read(self, db, id):  # given an id, look the player up in the DB
+    def read(self, db, pid):  # given an id, look the player up in the DB
         c = db.cursor  # get cursor object from DB
-        c.execute('SELECT * FROM players WHERE ID=?', id)  # get the player with the correct ID
+        c.execute('SELECT * FROM players WHERE ID=?', pid)  # get the player with the correct ID
         data_list = c.fetchone()  # retrieve list of the player's attributes
 
         print(data_list)  # debug
@@ -42,7 +39,7 @@ class Player:
         i += 1
         self.fnm = data_list[i]  # first name
         i += 1
-        self.lst = data_list[i]  # last name
+        self.lnm = data_list[i]  # last name
         i += 1
         self.tmp = data_list[i]  # player template
         i += 1
