@@ -93,4 +93,26 @@ athletic_g = Template([  # D'Angelo Russell, Westbrook, John Wall, Derrick Rose,
     85, 90, 50, 90, 85, 80,
     30, 30, 30, 30, 30, 30, 30])
 
+scoring_g = Template([  # Steph Curry, Russell Westbrook, Damian Lillard, Dwyane Wade, Kyrie Irving
+    75.2083, 1.03919, 2.5068,
+    90, 90, 50, 90, 90, 30, 20, 30, 90, 90,
+    80, 80, 30, 80, 85, 80,
+    90, 50, 90, 50, 90, 90, 50])
 
+scoring_w = Template([  # MJ, Kobe, Klay Thompson, J.R. Smith, Nick Young, Demar Derozan
+    78.625, 1.0462, 2.7114,
+    90, 90, 50, 90, 90, 40, 30, 30, 80, 90,
+    80, 80, 40, 80, 80, 70,
+    90, 50, 90, 50, 80, 80, 50])
+
+scoring_f = Template([  # Melo, KD, Kevin Love, Anthony Bennett, Rudy Gay, Paul Pierce
+    80.2917, 1.0650, 2.8924,
+    90, 80, 70, 90, 70, 70, 70, 30, 60, 90,
+    70, 70, 70, 70, 70, 70,
+    90, 50, 90, 50, 70, 70, 50])
+
+scoring_b = Template([  # KG, Anthony Davis, LaMarcus Aldridge, Dirk, Chris Bosh, Marc Gasol
+    83.70833, 1.05390, 2.8579,
+    70, 50, 90, 90, 50, 80, 90, 30, 50, 90,
+    60, 70, 80, 70, 60, 60,
+    90, 50, 90, 50, 70, 70, 50])
