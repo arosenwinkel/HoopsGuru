@@ -1,6 +1,9 @@
-# SQLiteWrapper
+# RosterManager
 
 import sqlite3
+import template
+import random
+import numpy
 
 
 class DB:  # generic DB connection
@@ -9,8 +12,15 @@ class DB:  # generic DB connection
         self.cursor = self.db_object.cursor()
         self.name = db_name
 
+        self.init_roster()
+
         self.cursor.execute("SELECT MAX(ID) FROM players;")  # grab the max ID, set count to that
         self.count = self.cursor.fetchone()
+
+        if self.count[0] is None:  # No players in the database yet
+            self.count = 0
+        else:
+            self.count = int(self.count[0])
 
     @property
     def first_free(self):
@@ -26,7 +36,7 @@ class DB:  # generic DB connection
         # ID is the unique identifier for each player
         # every player to ever exist in a game has a unique id (they are not reassigned after retirement)
         self.cursor.execute('''
-                        CREATE TABLE players
+                        CREATE TABLE IF NOT EXISTS players
                       (ID integer PRIMARY KEY NOT NULL, fnm text, lst text, tm text, tmp text, ps1 integer, ps2 integer,
                          age integer, hgt integer, wgt integer, wng integer, fat integer, mot integer,
                          eth integer, tal integer, int integer, rng integer, lay integer, ofw integer,
@@ -43,5 +53,9 @@ class DB:  # generic DB connection
 
     def create_player(self):
         new_id = self.first_free
+        this_template = random.choice(template.template_list)
+        this_age = template.weighted_choice(template.age_dist_dict)
 
-
+        print(new_id)
+        print(this_template.template_name)
+        print(this_age)
