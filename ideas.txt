@@ -1,0 +1,183 @@
+IDEAS FOR DESIGN OF HOOPS GURU
+
+Contents:
+Screens (control flow of game from user perspective)
+Features (small things for each aspect of gameplay)
+
+--------- SCREENS ---------------
+--- Welcome Screen
+        Logo, touch to start, etc.
+
+--- Start Menu
+        New Career
+            Start a new career file
+        Load Career
+            Load a previous career file
+        Exhibition
+            Play a one-off game between any two teams on your roster
+        Manage Roster
+            Load roster, load draft class, etc.
+        Hall of Fame
+            Look at achievements, other fun stuff
+        Share
+            Export roster, export draft class, etc.
+        Settings
+            Self-explanatory
+
+--- New Career
+        Career Options?
+            Choose a league (college, NBA)
+            Start time (just before the draft, preseason, regular season, all-star break, playoffs)
+            Coach, Owner, GM, etc.... Player?
+            Fantasy draft
+        Pick a Team
+            Start unemployed option?
+
+--- Load Career
+        Most Recent
+        Load Career
+
+--- Exhibition
+        Pick two teams, can adjust rules, adjust rosters, etc.
+
+--- Manage Roster
+        Can import an existing roster file or draft class
+        Can make any change to the roster and save
+
+--- Hall of Fame
+        Keep track of achievements, interesting stats and stuff
+
+--- Share
+        Export your stuff so that other people can use it
+
+--- Settings
+
+--- Career Hub (main page for when you're in a career)
+    (Available as expandable shortcut bar on left side)
+        News Center
+            Read various stories from around the league
+            Look at box scores for recent games
+            Draft coverage, power rankings, playoff picture
+        Messages
+            Important messages for you
+            Actions you need to take
+            Injury reports
+        Calendar
+            Upcoming games
+            Big events (Draft, Free Agency dates, etc.)
+            Can set reminders ( to keep track of promises, etc. )
+        Players
+            View roster
+            Set Lineups
+            Talk to players
+            Oversee practice
+            Gameplan
+        Standings
+            Playoff picture
+            Most recent power rankings
+        Scouting
+            Look over player's attributes
+            Scout players in more depth
+            View past scouting reports
+            Trading ( maybe it would be confusing to have this here )
+            View tendencies
+            Draft previews
+            Recruiting ( if you're a college coach )
+        Finances
+            Salaries
+            Team finances
+        Stats
+            View filterable stats
+            View stats from previous years
+            View team stats from previous years
+            View draft history
+            View other history (champions, etc.)
+            Hall of Fame
+
+--- News Center
+        Filter by News Importance, type of news, scope of news (entire universe, just pros, just college)
+        Sorted by date, most recent first
+        Each piece of news is rated based on its "newsworthiness"
+        View highlights from other games as "broadcasted"
+
+--- Messages
+        Shows up as a bunch of emails, sorted by date
+        Read/unread
+        Should be link to 'Remind me in X time'
+        Should be links in message to the relevant screen to take action
+
+--- Calendar
+        Swipeable calendar
+        Should be able to adjust gameplans, etc directly from the calendar
+
+--- Players
+        Options:
+            View Roster
+            Depth Chart
+            Gameplan
+            Development
+            Injury Report
+        Depth Chart:
+            - Given 48 minutes at each of the 5 standard positions, distribute those minutes among each player
+            For instance, if I want a player to split time at SG and SF, they might have 15 minutes at each,
+            which might show up as a bar with two different colored segments, etc.
+            - Sortable by depth chart position / number of total minutes
+            - Option to automatically decide lineups
+        Gameplan:
+            - Type of offense (pick n roll, motion, etc.)
+            - Other strategy (pace, defense)
+        Development:
+            - Opinions of coaches on each player's development
+        Injury Report:
+            - Check in on how each injured player is progressing
+            - Estimate at return timeframe if out
+
+--- Standings
+        Options:
+            Standings
+            Power Rankings
+        Able to adjust scope of standings ( conference, division )
+        View power rankings
+            - 1-30, include last week rank and delta
+            - For college, replaced with Top 25 poll
+                Maybe include first 5 out?
+
+--- Scouting
+        Options:
+            Search Players
+            View Reports
+            Make Trades
+            Draft Preview / Recruiting
+        Search Players:
+            - Search players by different criteria ("find a player under 30 that can shoot threes and is at least 6'8"
+            - Return all player pages of that criteria
+            - Request scouting reports from this page
+        View Reports:
+            - View past scouting reports you have requested
+        Make Trades:
+            - View other teams' trade blocks
+            - Manually set up trades
+        Draft Preview / Recruiting:
+            - View mock draft
+            - View where each player is looking at going to school
+
+--- Finances
+        Options:
+            Salaries
+            Finances
+
+--- Stats
+        Options:
+            Browse
+            Search
+            History
+            Hall of Fame
+
+--- GAME ---
+    Set Opposition Instructions
+    During gameplay: Call timeout when you have the ball
+    Able to watch gamecast, with optional broadcasting
+        Broadcasting: Play by Play and Color commentary
+    At timeouts can adjust lineup, make tactical changes
+    Sideline tactical changes?
+    Injured player updates
