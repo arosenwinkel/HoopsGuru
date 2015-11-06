@@ -86,58 +86,42 @@ age_dist_dict = dict(zip(age_dist_ages, age_dist_wgts))
 
 # Define template constants and then stick them all in a dictionary for access by other .py files
 template_list = []
-athletic_b = Template("athletic_b",[  # Dwight Howard, DeAndre Jordan,
-    83.688, 1.051, 3.069,
-    10, 10, 40, 40, 10, 40, 40, 25, 10, 10,
-    75, 75, 90, 75, 75, 60,
-    30, 30, 20, 30, 20, 20, 30])
-template_list.append(athletic_b)
+temp1 = Template("temp1", [  # LeBron James
+    80, 1.053, 3.125,
+    60, 75, 70, 80, 60, 55, 50, 75, 85, 70,
+    80, 90, 85, 90, 85, 85,
+    80, 80, 65, 75, 90, 80, 80
+])
+template_list.append(temp1)
 
-athletic_f = Template("athletic_f",[  # Kenneth Faried, Blake Griffin, Tristan Thompson, Montrezl Harrell
-    80.667, 1.0597, 2.934,
-    20, 20, 40, 40, 20, 40, 40, 30, 20, 20,
-    80, 80, 80, 80, 80, 65,
-    30, 30, 20, 30, 20, 20, 30])
-template_list.append(athletic_f)
+temp2 = Template("temp2", [  # Kevin Durant
+    82.25, 1.079, 2.918,
+    80, 70, 65, 80, 70, 45, 40, 65, 70, 75,
+    75, 75, 65, 80, 80, 75,
+    75, 70, 75, 70, 75, 80, 70
+])
+template_list.append(temp2)
 
-athletic_w = Template("athletic_w",[  # Stanley Johnson, Justise Winslow, Andre Wiggins, Kelly Oubre
-    78.667, 1.0557, 2.627,
-    30, 30, 30, 30, 30, 30, 20, 20, 30, 30,
-    85, 90, 70, 85, 85, 70,
-    30, 30, 30, 30, 20, 30, 30])
-template_list.append(athletic_w)
+temp3 = Template("temp3", [  # Russell Westbrook
+    75.5, 1.056, 2.543,
+    75, 80, 45, 70, 75, 50, 30, 50, 70, 80,
+    90, 85, 50, 95, 90, 70,
+    50, 60, 60, 55, 50, 60, 60
+])
+template_list.append(temp3)
 
-athletic_g = Template( "athletic_g",[  # D'Angelo Russell, Westbrook, John Wall, Derrick Rose, Zach Lavine
-    76.167, 1.0598, 2.563,
-    35, 40, 20, 30, 40, 20, 20, 30, 40, 30,
-    85, 90, 50, 90, 85, 80,
-    30, 30, 30, 30, 30, 30, 30])
-template_list.append(athletic_g)
+temp4 = Template("temp4", [  # Steph Curry
+    75.25, 1.003, 2.525,
+    95, 75, 30, 75, 90, 30, 20, 55, 80, 85,
+    85, 50, 20, 70, 75, 80,
+    70, 65, 85, 70, 85, 85, 65
+])
+template_list.append(temp4)
 
-scoring_g = Template( "scoring_g",[  # Steph Curry, Russell Westbrook, Damian Lillard, Dwyane Wade, Kyrie Irving
-    75.2083, 1.03919, 2.5068,
-    90, 90, 50, 90, 90, 30, 20, 30, 90, 90,
-    80, 80, 30, 80, 85, 80,
-    90, 50, 90, 50, 90, 90, 50])
-template_list.append(scoring_g)
-
-scoring_w = Template( "scoring_w",[  # MJ, Kobe, Klay Thompson, J.R. Smith, Nick Young, Demar Derozan
-    78.625, 1.0462, 2.7114,
-    90, 90, 50, 90, 90, 40, 30, 30, 80, 90,
-    80, 80, 40, 80, 80, 70,
-    90, 50, 90, 50, 80, 80, 50])
-template_list.append(scoring_w)
-
-scoring_f = Template( "scoring_f",[  # Melo, KD, Kevin Love, Anthony Bennett, Rudy Gay, Paul Pierce
-    80.2917, 1.0650, 2.8924,
-    90, 80, 70, 90, 70, 70, 70, 30, 60, 90,
-    70, 70, 70, 70, 70, 70,
-    90, 50, 90, 50, 70, 70, 50])
-template_list.append(scoring_f)
-
-scoring_b = Template( "scoring_b",[  # KG, Anthony Davis, LaMarcus Aldridge, Dirk, Chris Bosh, Marc Gasol
-    83.70833, 1.05390, 2.8579,
-    70, 50, 90, 90, 50, 80, 90, 30, 50, 90,
-    60, 70, 80, 70, 60, 60,
-    90, 50, 90, 50, 70, 70, 50])
-template_list.append(scoring_b)
+temp5 = Template("temp5", [  # DeMarcus Cousins
+    82.75, 1.085, 3.529,
+    50, 40, 80, 85, 30, 75, 80, 40, 50, 70,
+    60, 50, 80, 50, 50, 60,
+    40, 40, 30, 35, 40, 35, 35
+])
+template_list.append(temp5)
