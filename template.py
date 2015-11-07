@@ -13,8 +13,13 @@ def weighted_choice(choices):  # takes in a dictionary as an argument
 
 
 class Template:
-    def __init__(self, name, data_list):
+    def __init__(self, name, pos1, pos2, quality, data_list):
         self.template_name = name
+        self.pos1 = pos1
+        self.pos2 = pos2
+        # quality: 50 = NBA average, 70 = All-Star, 80 = All-NBA, 95 = GOAT
+        self.quality = quality
+
         self.fun = {}  # dict for fundamental skills
         self.ath = {}  # dict for athletic attributes
         self.iq = {}  # dict for bbiq attributes
@@ -87,6 +92,7 @@ age_dist_dict = dict(zip(age_dist_ages, age_dist_wgts))
 # Define template constants and then stick them all in a dictionary for access by other .py files
 template_list = []
 temp1 = Template("temp1", [  # LeBron James
+    "SF", "PF", 95,
     80, 1.053, 3.125,
     60, 75, 70, 80, 60, 55, 50, 75, 85, 70,
     80, 90, 85, 90, 85, 85,
@@ -95,6 +101,7 @@ temp1 = Template("temp1", [  # LeBron James
 template_list.append(temp1)
 
 temp2 = Template("temp2", [  # Kevin Durant
+    "SF", "PF", 95,
     82.25, 1.079, 2.918,
     80, 70, 65, 80, 70, 45, 40, 65, 70, 75,
     75, 75, 65, 80, 80, 75,
@@ -103,6 +110,7 @@ temp2 = Template("temp2", [  # Kevin Durant
 template_list.append(temp2)
 
 temp3 = Template("temp3", [  # Russell Westbrook
+    "PG", "SG", 85,
     75.5, 1.056, 2.543,
     75, 80, 45, 70, 75, 50, 30, 50, 70, 80,
     90, 85, 50, 95, 90, 70,
@@ -111,6 +119,7 @@ temp3 = Template("temp3", [  # Russell Westbrook
 template_list.append(temp3)
 
 temp4 = Template("temp4", [  # Steph Curry
+    "PG", "SG", 95,
     75.25, 1.003, 2.525,
     95, 75, 30, 75, 90, 30, 20, 55, 80, 85,
     85, 50, 20, 70, 75, 80,
@@ -119,9 +128,34 @@ temp4 = Template("temp4", [  # Steph Curry
 template_list.append(temp4)
 
 temp5 = Template("temp5", [  # DeMarcus Cousins
+    "C", "PF", 80,
     82.75, 1.085, 3.529,
     50, 40, 80, 85, 30, 75, 80, 40, 50, 70,
     60, 50, 80, 50, 50, 60,
     40, 40, 30, 35, 40, 35, 35
 ])
 template_list.append(temp5)
+
+temp6 = Template("temp6", [  # Marc Gasol
+    "C", "None", 80,
+    85, 1.056, 3.118,
+    50, 35, 70, 80, 20, 55, 65, 70, 65, 70,
+    35, 35, 90, 40, 40, 55,
+    50, 75, 30, 80, 45, 30, 75
+])
+
+temp7 = Template("temp7", [  # Blake Griffin
+    "PF", "None", 80,
+    82, 1.015, 3.061,
+    40, 50, 60, 65, 40, 50, 60, 40, 55, 60,
+    60, 80, 80, 60, 60, 60,
+    35, 40, 45, 40, 50, 35, 40
+])
+
+temp8 = Template("temp8", [  # James Harden
+    "SG", "None", 85,
+    77.25, 1.071, 2.874,
+    80, 90, 50, 80, 85, 60, 35, 35, 60, 85,
+    80, 65, 45, 80, 75, 90,
+    60, 40, 75, 40, 75, 80, 35
+])
