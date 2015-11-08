@@ -221,3 +221,19 @@ Features (small things for each aspect of gameplay)
     - The ball handler will look for opportunities to get the ball to teammates or score, depending on tendencies/openings
     - Defenders react to the ball and their marks
     - Behaviors strongly influenced by tendencies and strategy
+
+--- MISC
+    - WEIGHT and ATHLETICISM
+        - System that defines relationship between weight and athleticism
+        - Baseline values given to each player (in template?)
+        - If a player is out of shape, they can gain weight and be less athletic
+        - If a player is strength training, they can gain weight and strength, might lose athleticism
+        - Can do aerobic training to lose weight and gain athleticism back
+
+    - DRAFT AI
+        - Should prioritize in order:
+            1. Athleticism
+            2. Size
+            3. Current Ability
+            4. Success
+        - Take more risks in later rounds
