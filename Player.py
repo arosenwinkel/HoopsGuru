@@ -12,8 +12,8 @@ class Player:
         self.id = 0
         self.fnm = "Unnamed"
         self.lnm = "Player"
-        self.tm = "Unassigned"
-        self.tmp = "Unassigned"
+        self.tm = "Unassigned"  # team
+        self.tmp = "Unassigned"  # template
         self.ps1 = 1
         self.ps2 = 2
         self.age = 1

@@ -58,15 +58,15 @@ class Template:
         # athleticism
         self.ath["qui"] = data_list[i]  # quickness
         i += 1
-        self.fun["vrt"] = data_list[i]  # vertical leap
+        self.ath["vrt"] = data_list[i]  # vertical leap
         i += 1
-        self.fun["str"] = data_list[i]  # strength
+        self.ath["str"] = data_list[i]  # strength
         i += 1
-        self.fun["spd"] = data_list[i]  # speed
+        self.ath["spd"] = data_list[i]  # speed
         i += 1
-        self.fun["fit"] = data_list[i]  # fitness
+        self.ath["fit"] = data_list[i]  # fitness
         i += 1
-        self.fun["coo"] = data_list[i]  # coordination
+        self.ath["coo"] = data_list[i]  # coordination
         i += 1
 
         # basketball iq

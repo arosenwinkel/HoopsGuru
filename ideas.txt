@@ -222,6 +222,20 @@ Features (small things for each aspect of gameplay)
     - Defenders react to the ball and their marks
     - Behaviors strongly influenced by tendencies and strategy
 
+--- Teams
+    - Players keep track of team ID
+    - Team has roster which contains player ID's
+
+--- Player Creation
+    - Process:
+        - Pick template
+        - run attributes through normal distribution
+        - equations (x = age)
+            - fund = -.0022526*x2 + .145624*x - 1.327448
+            - ath = -.0021103*x2 + .0981017*x - .1806373
+            - IQ = -.00170189*x2 + .1247555*x - 1.273465
+        - Answer is factor to multiply attribute by
+
 --- MISC
     - WEIGHT and ATHLETICISM
         - System that defines relationship between weight and athleticism
