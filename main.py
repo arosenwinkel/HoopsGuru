@@ -2,7 +2,6 @@
 
 import GameState
 
-
 def main():
     state = GameState.State()
     state.acquire_data()
