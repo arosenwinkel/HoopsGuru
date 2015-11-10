@@ -24,7 +24,7 @@ class Player:
         self.mot = "50"
         self.eth = "50"
         self.tal = "50"
-        self.int = "50"
+        self.inl = "50"
 
     def read(self, db, pid):  # given an id, look the player up in the DB
         c = db.cursor  # get cursor object from DB
@@ -63,7 +63,7 @@ class Player:
         i += 1
         self.tal = data_list[i]  # natural talent
         i += 1
-        self.int = data_list[i]  # intelligence
+        self.inl = data_list[i]  # intelligence
         i += 1
 
         # fundamental skills
@@ -140,7 +140,7 @@ class Player:
         self.men["ego"] = data_list[i]  # ego....
         i += 1
         self.men["ldr"] = data_list[i]  # leadership
-        i+= 1
+        i += 1
 
         # shooting hotspots
         self.sht["rcr"] = data_list[i]  # right corner
