@@ -10,21 +10,21 @@ class Player:
         self.men = {}  # dict for mental attributes
         self.sht = {}  # dict for shooting attributes
         self.id = 0
-        self.fnm = "Unnamed"
+        self.fnm = "First"
         self.lnm = "Player"
         self.tm = "Unassigned"
         self.tmp = "Unassigned"
-        self.ps1 = 1
-        self.ps2 = 2
-        self.age = 1
-        self.hgt = 1
-        self.wgt = 1
-        self.wng = 1
-        self.fat = 50
-        self.mot = 50
-        self.eth = 50
-        self.tal = 50
-        self.int = 50
+        self.ps1 = "1"
+        self.ps2 = "2"
+        self.age = "1"
+        self.hgt = "1"
+        self.wgt = "1"
+        self.wng = "1"
+        self.fat = "50"
+        self.mot = "50"
+        self.eth = "50"
+        self.tal = "50"
+        self.int = "50"
 
     def read(self, db, pid):  # given an id, look the player up in the DB
         c = db.cursor  # get cursor object from DB
@@ -91,15 +91,15 @@ class Player:
         # athleticism
         self.ath["qui"] = data_list[i]  # quickness
         i += 1
-        self.fun["vrt"] = data_list[i]  # vertical leap
+        self.ath["vrt"] = data_list[i]  # vertical leap
         i += 1
-        self.fun["str"] = data_list[i]  # strength
+        self.ath["str"] = data_list[i]  # strength
         i += 1
-        self.fun["spd"] = data_list[i]  # speed
+        self.ath["spd"] = data_list[i]  # speed
         i += 1
-        self.fun["fit"] = data_list[i]  # fitness
+        self.ath["fit"] = data_list[i]  # fitness
         i += 1
-        self.fun["coo"] = data_list[i]  # coordination
+        self.ath["coo"] = data_list[i]  # coordination
         i += 1
 
         # basketball iq
@@ -139,6 +139,8 @@ class Player:
         i += 1
         self.men["ego"] = data_list[i]  # ego....
         i += 1
+        self.men["ldr"] = data_list[i]  # leadership
+        i+= 1
 
         # shooting hotspots
         self.sht["rcr"] = data_list[i]  # right corner
