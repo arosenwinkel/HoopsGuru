@@ -66,3 +66,4 @@ class State:  # what is instantiated when the user opens the game
 
         if self.db_loaded:  # game ended, close the db
             self.db.close()
+
