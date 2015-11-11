@@ -45,7 +45,7 @@ class DB:  # generic DB connection
         # every player to ever exist in a game has a unique id (they are not reassigned after retirement)
         self.cursor.execute('''
                         CREATE TABLE IF NOT EXISTS players
-                      (ID  PRIMARY KEY NOT NULL, fnm text, lst text, tm text, tmp text, ps1 text, ps2 text,
+                      (ID integer PRIMARY KEY NOT NULL, fnm text, lst text, tm text, tmp text, ps1 text, ps2 text,
                          age integer, hgt integer, wgt integer, wng integer, fat integer, mot integer,
                          eth integer, tal integer, inl integer, rng integer, lay integer, ofw integer,
                          tou integer, hnd integer, box integer, scn integer, dfw integer, pas integer,
@@ -58,6 +58,155 @@ class DB:  # generic DB connection
                 ''')
 
         self.db_object.commit()
+        
+    def read_player(self, pid):
+        # pid must be turned into a one-element tuple.... for some reason
+        self.cursor.execute('SELECT * FROM players WHERE ID=?', (pid,))  # get the player with the correct ID
+        data_list = self.cursor.fetchone()  # retrieve list of the player's attributes
+
+        i = 0  # keep track of position (so this process is more updateable)
+        
+        p = Player.Player()
+
+        p.id = data_list[i]  # unique player ID
+        i += 1
+        p.fnm = data_list[i]  # first name
+        i += 1
+        p.lnm = data_list[i]  # last name
+        i += 1
+        p.tm = data_list[i]  # player's team
+        i += 1
+        p.tmp = data_list[i]  # player template
+        i += 1
+        p.ps1 = data_list[i]  # primary position
+        i += 1
+        p.ps2 = data_list[i]  # secondary position
+        i += 1
+        p.age = data_list[i]  # age....
+        i += 1
+        p.hgt = data_list[i]  # height (inches)
+        i += 1
+        p.wgt = data_list[i]  # weight (lbs)
+        i += 1
+        p.wng = data_list[i]  # wingspan (inches)
+        i += 1
+        p.fat = data_list[i]  # fatigue
+        i += 1
+        p.mot = data_list[i]  # motivation
+        i += 1
+        p.eth = data_list[i]  # work ethic
+        i += 1
+        p.tal = data_list[i]  # natural talent
+        i += 1
+        p.inl = data_list[i]  # intelligence
+        i += 1
+
+        # fundamental skills
+        p.fun["rng"] = data_list[i]  # shooting range
+        i += 1
+        p.fun["lay"] = data_list[i]  # layup
+        i += 1
+        p.fun["ofw"] = data_list[i]  # offensive footwork
+        i += 1
+        p.fun["tou"] = data_list[i]  # touch
+        i += 1
+        p.fun["hnd"] = data_list[i]  # handling
+        i += 1
+        p.fun["box"] = data_list[i]  # boxout
+        i += 1
+        p.fun["scn"] = data_list[i]  # set screen
+        i += 1
+        p.fun["dfw"] = data_list[i]  # defensive footwork
+        i += 1
+        p.fun["pas"] = data_list[i]  # passing
+        i += 1
+        p.fun["off"] = data_list[i]  # off-hand
+        i += 1
+
+        # athleticism
+        p.ath["qui"] = data_list[i]  # quickness
+        i += 1
+        p.ath["vrt"] = data_list[i]  # vertical leap
+        i += 1
+        p.ath["str"] = data_list[i]  # strength
+        i += 1
+        p.ath["spd"] = data_list[i]  # speed
+        i += 1
+        p.ath["fit"] = data_list[i]  # fitness
+        i += 1
+        p.ath["coo"] = data_list[i]  # coordination
+        i += 1
+
+        # basketball iq
+        p.iq["dec"] = data_list[i]  # decisions
+        i += 1
+        p.iq["rct"] = data_list[i]  # reaction time
+        i += 1
+        p.iq["obl"] = data_list[i]  # off-ball movement
+        i += 1
+        p.iq["ant"] = data_list[i]  # anticipation
+        i += 1
+        p.iq["vis"] = data_list[i]  # vision
+        i += 1
+        p.iq["crt"] = data_list[i]  # creativity
+        i += 1
+        p.iq["foc"] = data_list[i]  # focus
+        i += 1
+
+        # mental attributes
+        p.men["agg"] = data_list[i]  # aggressiveness
+        i += 1
+        p.men["cmp"] = data_list[i]  # composure
+        i += 1
+        p.men["mtr"] = data_list[i]  # motor
+        i += 1
+        p.men["cns"] = data_list[i]  # consistency
+        i += 1
+        p.men["clu"] = data_list[i]  # clutch
+        i += 1
+        p.men["drt"] = data_list[i]  # dirtiness
+        i += 1
+        p.men["mat"] = data_list[i]  # maturity
+        i += 1
+        p.men["cch"] = data_list[i]  # coachability
+        i += 1
+        p.men["dtr"] = data_list[i]  # determination
+        i += 1
+        p.men["ego"] = data_list[i]  # ego....
+        i += 1
+        p.men["ldr"] = data_list[i]  # leadership
+        i += 1
+
+        # tendencies to be added later....
+        '''
+
+        # shooting hotspots
+        p.sht["rcr"] = data_list[i]  # right corner
+        i += 1
+        p.sht["lcr"] = data_list[i]
+        i += 1
+        p.sht["rwg"] = data_list[i]  # right wing
+        i += 1
+        p.sht["lwg"] = data_list[i]
+        i += 1
+        p.sht["tok"] = data_list[i]  # top of key (3PT)
+        i += 1
+        p.sht["ftl"] = data_list[i]  # free throw line (2PT)
+        i += 1
+        p.sht["rel"] = data_list[i]  # right elbow
+        i += 1
+        p.sht["lel"] = data_list[i]
+        i += 1
+        p.sht["rbl"] = data_list[i]  # right baseline
+        i += 1
+        p.sht["lbl"] = data_list[i]
+        i += 1
+
+        # tendencies....
+
+        '''
+
+        return p
 
     def create_player(self):
         new_id = self.first_free  # get the first player ID that is free
