@@ -10,16 +10,17 @@ class State:  # what is instantiated when the user opens the game
         self.db_name = "No DB Loaded"
 
     def print_roster(self):
-        self.db.cursor.execute("SELECT * FROM Players")
+        # create some lists for easy printout later....
         fun = ["rng", "lay", "ofw", "tou", "hnd", "box", "scn", "dfw", "pas", "off"]
         ath = ["qui", "vrt", "str", "spd", "fit", "coo"]
         iq = ["dec", "rct", "obl", "ant", "vis", "crt", "foc"]
-        for i in range(1, 11):
-            this_p = self.db.read_player(i)
+
+        for i in range(1, 10 + 1):
+            this_p = self.db.read_player(i)  # read the player in
             print("Player {}: {} {}, template: {}, {} height, {} wingspan, {} weight".format(
                 this_p.id, this_p.fnm, this_p.lnm, this_p.tmp, this_p.hgt, this_p.wng, this_p.wgt
             ))
-            for x in fun:
+            for x in fun:  # print out all attributes in the fundamental category
                 print(x + "={},".format(this_p.fun[x]), end=" ")
             print()
             for x in ath:
@@ -89,4 +90,3 @@ class State:  # what is instantiated when the user opens the game
 
         if self.db_loaded:  # game ended, close the db
             self.db.close()
-

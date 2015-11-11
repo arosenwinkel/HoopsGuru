@@ -59,7 +59,7 @@ class DB:  # generic DB connection
 
         self.db_object.commit()
         
-    def read_player(self, pid):
+    def read_player(self, pid):  # read DB and return player at pid as a Player object
         # pid must be turned into a one-element tuple.... for some reason
         self.cursor.execute('SELECT * FROM players WHERE ID=?', (pid,))  # get the player with the correct ID
         data_list = self.cursor.fetchone()  # retrieve list of the player's attributes
