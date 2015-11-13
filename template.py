@@ -5,11 +5,11 @@ import random
 def weighted_choice(choices):  # takes in a dictionary as an argument
     total = sum(w for c, w in choices.items())
     r = random.uniform(0, total)
-    upto = 0
+    limit = 0
     for c, w in choices.items():
-        if upto + w > r:
+        if limit + w > r:
             return c
-        upto += w
+        limit += w
 
 
 class Template:
@@ -178,3 +178,27 @@ temp11 = Template("temp11", "PF", "None", 70, [  # Serge Ibaka, athletic rim pro
     35, 75, 40, 75, 35, 25, 75
 ])
 template_list.append(temp11)
+
+temp12 = Template("temp12", "PG", "None", 90, [  # Chris Paul, undersized distributor, great defender
+    73, 1.045, 2.438,
+    70, 80, 30, 85, 95, 65, 30, 85, 95, 85,
+    85, 45, 35, 80, 85, 90,
+    90, 90, 75, 85, 95, 90, 90
+])
+template_list.append(temp12)
+
+temp13 = Template("temp13", "PF", "C", 80, [  # LaMarcus Aldridge, versatile offensive big
+    83.25, 1.066, 2.811,
+    50, 40, 80, 85, 45, 85, 70, 70, 50, 65,
+    60, 50, 80, 65, 55, 70,
+    60, 65, 45, 70, 50, 30, 55
+])
+template_list.append(temp13)
+
+temp14 = Template("temp14", "PF", "None", 50, [  # Brandon MF Bass, Average PF
+    79.25, 1.091, 3.104,
+    35, 30, 45, 55, 25, 75, 50, 25, 40,
+    40, 55, 70, 40, 65, 70,
+    40, 60, 20, 50, 20, 15, 45
+])
+template_list.append(temp14)
