@@ -48,10 +48,24 @@ class State:  # what is instantiated when the user opens the game
 
     def load_game(self):  # load a game that already exists
         while True:
-            print("Please enter the name of a saved game.")
-            response = input()
+            # print out the names of the saved games in this directory
+            files_list = [f for f in os.listdir(".") if f[-5:] == ".univ"]  # files_list = list of save names
+            if len(files_list):  # if there are saved games
+                print("Saved games in this directory: {}".format(len(files_list)))
+                for f in files_list:
+                    print(f)
+            else:
+                print("No saves in this directory. Would you like to create one?")
+                answer = input()
+                if answer in "yY":
+                    self.new_game()
+                    break
 
-            dbname = response + ".univ"
+            print("Please enter the name of a saved game.")
+            dbname = input()
+
+            if dbname[-5:] != ".univ":
+                dbname += ".univ"
             if os.path.isfile(dbname):  # if the db exists
                 self.db = RosterManager.DB(dbname)  # connect to it (not create it)
                 print("'{}' loaded successfully.".format(dbname))
@@ -59,7 +73,11 @@ class State:  # what is instantiated when the user opens the game
                 self.db_loaded = True
                 break
             else:
-                print("'{}' does not exist.".format(dbname))  # error
+                print("'{}' does not exist. Would you like to create a new save?".format(dbname))  # error
+                answer = input()
+                if answer in "Yy":
+                    self.new_game()
+                    break
 
     def acquire_data(self):  # either create a new save or load one
         while True:
