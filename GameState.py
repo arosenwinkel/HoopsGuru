@@ -8,6 +8,7 @@ class State:  # what is instantiated when the user opens the game
     def __init__(self):
         self.db_loaded = False  # nothing loaded yet, don't start the game
         self.db_name = "No DB Loaded"
+        self.db = "NULL"
 
     def print_roster(self):
         # create some lists for easy printout later....
@@ -90,9 +91,13 @@ class State:  # what is instantiated when the user opens the game
             if response in "Nn":  # dispatcher
                 self.new_game()
 
-                print("Automatically creating players:")
-                for i in range(10):
+                print("Automatically creating players...", end="")
+                amount = 100
+                for i in range(amount):
                     self.db.create_player()
+                    if i % (amount / 20)== 0:  # some fancy loading bar shizz
+                        print(".", end="", flush=True)
+                print("done.")  # now we have a bit of visual feedback
 
             elif response in "Ll":
                 self.load_game()
