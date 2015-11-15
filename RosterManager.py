@@ -20,6 +20,8 @@ class DB:  # generic DB connection
         self.cursor = self.db_object.cursor()
         self.name = db_name
 
+        self.write_queue = []  # players to write into the DB
+
         self.init_roster()
 
         self.cursor.execute("SELECT MAX(ID) FROM players;")  # grab the max ID, set count to that
@@ -282,8 +284,11 @@ class DB:  # generic DB connection
                        p.iq["dec"],p.iq["rct"], p.iq["obl"], p.iq["ant"], p.iq["vis"], p.iq["crt"], p.iq["foc"],
                        p.men["agg"], p.men["cmp"], p.men["mtr"], p.men["cns"], p.men["clu"], p.men["drt"], p.men["mat"],
                        p.men["cch"], p.men["dtr"], p.men["ego"], p.men["ldr"])
+        self.write_queue.append(player_list)
 
-        self.cursor.execute("INSERT INTO Players(ID, fnm, lst, tm, tmp, ps1, ps2, " +
+    def write_all(self):
+        for p in self.write_queue:  # for each player in the write queue....
+            self.cursor.execute("INSERT INTO Players(ID, fnm, lst, tm, tmp, ps1, ps2, " +
                             "age, hgt, wgt, wng, fat, mot , " +
                             "eth, tal, inl, rng, lay, ofw , " +
                             "tou, hnd, box, scn, dfw, pas , " +
@@ -293,8 +298,12 @@ class DB:  # generic DB connection
                             "clu, drt, mat, cch, dtr, ego , " +
                             "ldr) " +
                             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
-                            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", player_list)
+                            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", p)
 
+        self.db_object.commit()
+
+        self.write_queue = []
+        #  old way below
         '''
                             "'" + new_id + "'," +
                             "'" + p.fnm + "'," +
@@ -347,5 +356,3 @@ class DB:  # generic DB connection
                             "'" + p.men["ego"] + "'," +
                             "'" + p.men["ldr"] + "')")
         '''
-
-        self.db_object.commit()

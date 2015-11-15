@@ -95,10 +95,11 @@ class State:  # what is instantiated when the user opens the game
                 amount = 100
                 for i in range(amount):
                     self.db.create_player()
-                    if i % (amount / 10) == 0:  # some fancy loading bar shizz
-                        print(" {}/{}...".format(i, amount),
-                              end="", flush=True)  # flush=True -> keep printing without waiting for the newline
-                print(" done.")  # now we have a bit of visual feedback
+                print("done.")
+
+                print("Writing players to the database...", end="")
+                self.db.write_all()
+                print("done.")
 
             elif response in "Ll":
                 self.load_game()
