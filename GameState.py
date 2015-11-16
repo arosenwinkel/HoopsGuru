@@ -2,6 +2,7 @@
 
 import RosterManager
 import os.path
+import utilities
 
 
 class State:  # what is instantiated when the user opens the game
@@ -18,8 +19,9 @@ class State:  # what is instantiated when the user opens the game
 
         for i in range(1, 10 + 1):
             this_p = self.db.read_player(i)  # read the player in
-            print("Player {}: {} {}, template: {}, {} height, {} wingspan, {} weight".format(
-                this_p.id, this_p.fnm, this_p.lnm, this_p.tmp, this_p.hgt, this_p.wng, this_p.wgt
+            print("Player {}: {} {}, template: {}, {}/{}, {} y.o. {} height, {} wingspan, {} lbs.".format(
+                this_p.id, this_p.fnm, this_p.lnm, this_p.tmp, this_p.ps1, this_p.ps2, this_p.age,
+                utilities.height_to_feet(this_p.hgt), utilities.height_to_feet(this_p.wng), this_p.wgt
             ))
             for x in fun:  # print out all attributes in the fundamental category
                 print(x + "={},".format(this_p.fun[x]), end=" ")
@@ -94,11 +96,11 @@ class State:  # what is instantiated when the user opens the game
                 print("Automatically creating players...", end="")
                 amount = 100
                 for i in range(amount):
-                    self.db.create_player()
+                    self.db.create_player()  # create, add to write queue
                 print("done.")
 
                 print("Writing players to the database...", end="")
-                self.db.write_all()
+                self.db.write_all()  # using this function to write the entire queue at once is much faster
                 print("done.")
 
             elif response in "Ll":

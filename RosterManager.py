@@ -4,6 +4,7 @@ import sqlite3
 import template
 import random
 import Player
+import utilities
 
 
 def norm_int(n, std):
@@ -213,13 +214,7 @@ class DB:  # generic DB connection
     def create_player(self):
         new_id = self.first_free  # get the first player ID that is free
         this_template = random.choice(template.template_list)  # pick a template
-        this_age = template.weighted_choice(template.age_dist_dict)  # pick an age
-
-        '''
-        print("ID: " + str(new_id))
-        print("template name: " + str(this_template.template_name))
-        print("Age: " + str(this_age))
-        '''
+        this_age = utilities.weighted_choice(template.age_dist_dict)  # pick an age
 
         p = Player.Player()
         p.id = new_id
@@ -231,6 +226,9 @@ class DB:  # generic DB connection
         p.hgt = norm_int(this_template.base_height, 1)  # get height
         p.wng = int(norm_flt(this_template.base_ws_factor, .01) * p.hgt)  # get wingspan
         p.wgt = int(norm_flt(this_template.base_weight_factor, .1) * p.hgt)  # get weight
+
+        p.ps1 = this_template.pos1
+        p.ps2 = this_template.pos2
 
         # get all attributes
         for i in this_template.fun.keys():
@@ -281,24 +279,25 @@ class DB:  # generic DB connection
                        p.eth, p.tal, p.inl, p.fun["rng"], p.fun["lay"], p.fun["ofw"], p.fun["tou"], p.fun["hnd"],
                        p.fun["box"], p.fun["scn"], p.fun["dfw"], p.fun["pas"], p.fun["off"],
                        p.ath["qui"], p.ath["vrt"], p.ath["str"], p.ath["spd"], p.ath["fit"], p.ath["coo"],
-                       p.iq["dec"],p.iq["rct"], p.iq["obl"], p.iq["ant"], p.iq["vis"], p.iq["crt"], p.iq["foc"],
+                       p.iq["dec"], p.iq["rct"], p.iq["obl"], p.iq["ant"], p.iq["vis"], p.iq["crt"], p.iq["foc"],
                        p.men["agg"], p.men["cmp"], p.men["mtr"], p.men["cns"], p.men["clu"], p.men["drt"], p.men["mat"],
                        p.men["cch"], p.men["dtr"], p.men["ego"], p.men["ldr"])
+
         self.write_queue.append(player_list)
 
     def write_all(self):
         for p in self.write_queue:  # for each player in the write queue....
             self.cursor.execute("INSERT INTO Players(ID, fnm, lst, tm, tmp, ps1, ps2, " +
-                            "age, hgt, wgt, wng, fat, mot , " +
-                            "eth, tal, inl, rng, lay, ofw , " +
-                            "tou, hnd, box, scn, dfw, pas , " +
-                            "off, qui, vrt, str, spd, fit , " +
-                            "coo, dec, rct, obl, ant, vis , " +
-                            "crt, foc, agg, cmp, mtr, cns , " +
-                            "clu, drt, mat, cch, dtr, ego , " +
-                            "ldr) " +
-                            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
-                            "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", p)
+                                "age, hgt, wgt, wng, fat, mot , " +
+                                "eth, tal, inl, rng, lay, ofw , " +
+                                "tou, hnd, box, scn, dfw, pas , " +
+                                "off, qui, vrt, str, spd, fit , " +
+                                "coo, dec, rct, obl, ant, vis , " +
+                                "crt, foc, agg, cmp, mtr, cns , " +
+                                "clu, drt, mat, cch, dtr, ego , " +
+                                "ldr) " +
+                                "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+                                "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", p)
 
         self.db_object.commit()
 
