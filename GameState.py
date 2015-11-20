@@ -1,6 +1,7 @@
 # GameState
 
 import RosterManager
+import os
 import os.path
 import utilities
 
@@ -81,13 +82,48 @@ class State:  # what is instantiated when the user opens the game
                 if answer in "Yy":
                     self.new_game()
                     break
+                else:
+                    break
+
+    def delete_game(self):
+        while True:
+            files_list = [f for f in os.listdir(".") if f[-5:] == ".univ"]  # files_list = list of save names
+            if len(files_list):  # if there are saved games
+                print("Saved games in this directory: {}".format(len(files_list)))
+                for f in files_list:
+                    print(f)
+            else:
+                print("No saves in this directory.")
+                break
+
+            print("Please enter the name of the game you would like to delete.")
+            print("Press ENTER without typing anything to go back.")
+            response = input()
+
+            if response[-5:] == ".univ":
+                pass
+            else:
+                response += ".univ"
+
+            if response in files_list:
+                print("Are you sure you want to delete {}? (y/N)".format(response))
+                yesno = input()
+                if yesno in "yY":
+                    if self.db_name == response:
+                        self.db_loaded = False  # nothing loaded yet, don't start the game
+                        self.db_name = "No DB Loaded"
+                        self.db = "NULL"
+                    os.remove(response)
+                    break
+                else:
+                    print("{} is not present in the directory.".format(response))
 
     def acquire_data(self):  # either create a new save or load one
         while True:
             if self.db_loaded:
                 print("DB Loaded: {}".format(self.db_name))
             print("Please enter a command.")
-            print("Available commands: (N)ew Game | (L)oad Game | (P)rint | (Q)uit")
+            print("Available commands: (N)ew Game | (L)oad Game | (D)elete Game | (P)rint | (Q)uit")
             response = input()
 
             if response in "Nn":  # dispatcher
@@ -111,6 +147,9 @@ class State:  # what is instantiated when the user opens the game
                     self.print_roster()
                 else:
                     print("No DB loaded. Please load a database before printing.")
+
+            elif response in "dD":
+                self.delete_game()
 
             elif response in "Qq":
                 break

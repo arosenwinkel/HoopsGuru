@@ -196,6 +196,11 @@ Features (small things for each aspect of gameplay)
         - Situation
     - For example, increase pace when down by more than 10
         - Decrease pace if you're turning the ball over a lot
+    - Partial Results:
+        - At every timeout, output the game state
+        - This way all concurrent games can be simulated at once, with studio updates that the player can see
+        - Don't save stats until the final result.
+        - Not sure how to handle player quitting before the game is finished. Maybe no need to worry about it?
 
 --- EITHER
     - Possessions branch into different Events

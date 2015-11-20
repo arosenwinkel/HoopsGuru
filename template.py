@@ -187,7 +187,7 @@ template_list.append(temp13)
 temp14 = Template("temp14", "PF", "None", 50, [  # Brandon MF Bass, Average PF
     79.25, 1.091, 3.104,
     35, 30, 45, 55, 25, 75, 50, 25, 40, 45,
-    45, 55, 70, 50, 65, 70,
+    50, 60, 70, 50, 65, 70,
     40, 60, 20, 50, 20, 15, 45
 ])
 template_list.append(temp14)
@@ -199,3 +199,27 @@ temp15 = Template("temp15", "SF", "SG", 50, [  # Wesley Johnson, Average Wing
     40, 35, 50, 30, 20, 25, 40
 ])
 template_list.append(temp15)
+
+temp16 = Template("temp16", "PG", "SG", 50, [  # Jimmer Fredette, Really good in college
+    74.5, 1.027, 2.631,
+    90, 50, 25, 45, 65, 30, 15, 30, 60, 50,
+    50, 30, 25, 70, 70, 75,
+    45, 40, 70, 35, 60, 55, 40
+])
+template_list.append(temp16)
+
+temp17 = Template("temp17", "PG", "None", 55, [  # Isaiah Thomas, Very undersized PG, 6MOY candidate
+    70.25, 1.050, 2.633,
+    65, 50, 15, 65, 70, 30, 20, 50, 50, 65,
+    85, 50, 15, 85, 80, 80,
+    45, 40, 50, 45, 30, 60, 35
+])
+template_list.append(temp17)
+
+temp18 = Template("temp18", "SF", "None", 50, [  # Luol Deng, Versatile SF
+    80, 1.056, 2.75,
+    55, 45, 40, 45, 50, 55, 30, 60, 40, 40,
+    70, 65, 40, 70, 90, 65,
+    45, 60, 55, 60, 40, 35, 65
+])
+template_list.append(temp18)
