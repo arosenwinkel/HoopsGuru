@@ -2,6 +2,7 @@
 
 import GameState
 
+
 def main():
     state = GameState.State()
     state.acquire_data()
@@ -10,5 +11,5 @@ def main():
 
     print("Thanks for playing!")
 
-
-main()
+if __name__ == "__main__":
+    main()

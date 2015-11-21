@@ -161,6 +161,23 @@ Features (small things for each aspect of gameplay)
             - View mock draft
             - View where each player is looking at going to school
 
+        How it works:
+            - Able to scout any player
+            - Decide on position and level of competition
+            - Generate a report for those criteria
+                - Report grades each player on
+                    - Technique (fundamental)
+                    - Intangible (iq and mental)
+                    - Physical (athleticism and size)
+                    - Potential?
+                - After that, grade the player on set of skills important to that position
+                    - If a player has average talent in a category, it either shouldn't show up or should be farther down
+                    - Categories in which the player deviates from average should be towards the top
+            - Players rated in all skills, then important ones are selected for report
+                - All Skills
+                    - Size, Athleticism, Shooting, Attacking, Post Offense, Pick and Roll, Playmaking,
+                        Post Defense, Perimeter Defense, Rim Protection, Rebounding, Mental, Durability
+
 --- Finances
         Options:
             Salaries
