@@ -4,6 +4,7 @@ import RosterManager
 import os
 import os.path
 import utilities
+import Scouting
 
 
 class State:  # what is instantiated when the user opens the game
@@ -34,6 +35,13 @@ class State:  # what is instantiated when the user opens the game
                 print(x + "={},".format(this_p.iq[x]), end=" ")
             print()
             print()
+
+    def scout(self):
+        for i in range(1, 10+1):
+            this_p = self.db.read_player(i)
+            s = Scouting.scout_pro_primary(this_p)
+            s.scout()
+            s.print()
 
     def new_game(self):  # create a new save
         while True:
@@ -144,7 +152,7 @@ class State:  # what is instantiated when the user opens the game
 
             elif response in "Pp":
                 if self.db_loaded:
-                    self.print_roster()
+                    self.scout()
                 else:
                     print("No DB loaded. Please load a database before printing.")
 

@@ -48,7 +48,7 @@ class DB:  # generic DB connection
         # every player to ever exist in a game has a unique id (they are not reassigned after retirement)
         self.cursor.execute('''
                         CREATE TABLE IF NOT EXISTS players
-                      (ID integer PRIMARY KEY NOT NULL, fnm text, lst text, tm text, tmp text, ps1 text, ps2 text,
+                      (ID integer PRIMARY KEY NOT NULL, fnm text, lst text, tm text, tmp text, ps1 integer, ps2 integer,
                          age integer, hgt integer, wgt integer, wng integer, fat integer, mot integer,
                          eth integer, tal integer, inl integer, rng integer, lay integer, ofw integer,
                          tou integer, hnd integer, box integer, scn integer, dfw integer, pas integer,
