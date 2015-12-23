@@ -2,3 +2,6 @@
 # 
 # Ignore pycache
 __pycache__
+
+# don't sync database files
+*.univ
