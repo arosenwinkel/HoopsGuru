@@ -11,11 +11,11 @@ class Player:
         self.sht = {}  # dict for shooting attributes
         self.id = 0
         self.fnm = "First"
-        self.lnm = "Player"
+        self.lnm = "Last"
         self.tm = "Unassigned"
         self.tmp = "Unassigned"
-        self.ps1 = 0
-        self.ps2 = 0
+        self.ps1 = "None"
+        self.ps2 = "None"
         self.age = 1
         self.hgt = 1
         self.wgt = 1

@@ -31,21 +31,6 @@ def repr_length(n):  # represent a given length (inches) in feet plus inches
     inches = n % 12
     return '''{}'{}"'''.format(feet, inches)
 
-def repr_pos(pos):
-    if pos == 0:
-        print("Invalid pos.")
-        return None
-    elif pos == 1:
-        return "PG"
-    elif pos == 2:
-        return "SG"
-    elif pos == 3:
-        return "SF"
-    elif pos == 4:
-        return "PF"
-    elif pos == 5:
-        return "C"
-
 def letter_grade(n):
     if n > 100 or n < 0:
         print ("Invalid input for letter_grade:", n)
@@ -132,15 +117,19 @@ class ScoutingReport:
     def print(self):
         print("--- {} {} ---".format(self.this_player.fnm, self.this_player.lnm))
         print("ID:", self.this_player.id)
-        if self.this_player.ps2 != 0:
-            print("{}/{}".format(repr_pos(self.this_player.ps1), repr_pos(self.this_player.ps2)))
+        print("{} years old".format(self.this_player.age))
+        if self.this_player.ps2 != "None":
+            print("{}/{}".format(self.this_player.ps1, self.this_player.ps2))
         else:
-            print(repr_pos(self.this_player.ps1))
-        print("Height: {}, Wingspan: {}, Weight: {}".format(self.this_player.hgt, self.this_player.wng, self.this_player.wgt))
+            print(self.this_player.ps1)
+        print("Height: {}, Wingspan: {}, Weight: {} lbs.".format(repr_length(self.this_player.hgt), 
+            repr_length(self.this_player.wng), self.this_player.wgt))
 
         self.aggs = sorted(self.aggs, key=lambda a: a.entropy, reverse=True)  # sort by entropy of grades
         for a in self.aggs:
             a.print()
+
+        print()
 
 
 class ProPGReport(ScoutingReport):
@@ -149,8 +138,8 @@ class ProPGReport(ScoutingReport):
         size_agg = Aggregate("Size")
         size_grade = 0
         height = self.this_player.hgt
-        size_grade += gfr( height, 70, 78, 100)
-        if height < 70:
+        size_grade += gfr( height, 70, 78, 50)
+        if height < 71:
             size_agg.add_skill("Short for his position at {}".format(repr_length(height)))
         elif height < 73:
             size_agg.add_skill("A little on the short side at {}".format(repr_length(height)))
@@ -162,11 +151,11 @@ class ProPGReport(ScoutingReport):
             size_agg.add_skill("Rare height for his position at {}".format(repr_length(height)))
 
         ws = self.this_player.wng
-        size_grade += gfr( ws, 72, 84, 100)
+        size_grade += gfr( ws, 72, 84, 50)
         if ws < 72:
-            size_agg.add_skill("Short arms at {}".format(repr_length(ws)))
+            size_agg.add_skill("Poor length for his position.")
         elif ws < 76:
-            size_agg.add_skill("Good length for his position at {}".format(repr_length(ws)))
+            size_agg.add_skill("Good length for his position.")
         elif ws < 80:
             size_agg.add_skill("Impressive wingspan at {}".format(repr_length(ws)))
         elif ws < 84:
@@ -187,7 +176,133 @@ class ProPGReport(ScoutingReport):
         self.aggs.append(size_agg)
 
         ''' ATHLETICISM AGGREGATE '''
+        ath_agg = Aggregate("Athleticism")
+        ath_grade = 0
+
+        quickness = self.this_player.ath["qui"]
+        ath_grade += gfr( quickness, 50, 95, 20 )
+        if quickness < 50:
+            ath_agg.add_skill("No explosiveness to speak of.")
+        elif quickness < 75:
+            ath_agg.add_skill("Not exceptionally explosive.")
+        elif quickness < 85:
+            ath_agg.add_skill("Good explosivess.")
+        else:
+            ath_agg.add_skill("Incredibly explosive.")
+
+        vertical = self.this_player.ath["vrt"]
+        ath_grade += gfr( vertical, 30, 95, 20 )
+        if vertical < 30:
+            ath_agg.add_skill("No leaping ability to speak of.")
+        elif vertical < 50:
+            ath_agg.add_skill("Limited leaping ability.")
+        elif vertical < 75:
+            ath_agg.add_skill("Average leaping ability.")
+        elif vertical < 85:
+            ath_agg.add_skill("Great leaping ability.")
+        else:
+            ath_agg.add_skill("Otherworldly leaping ability.")
+
+        strength = self.this_player.ath["str"]
+        ath_grade += gfr( strength, 10, 50, 20 )
+        if strength < 20:
+            ath_agg.add_skill("Very little upper-body strength.")
+        elif strength < 30:
+            ath_agg.add_skill("Acceptable upper-body strength.")
+        elif strength < 40:
+            ath_agg.add_skill("Good upper-body strength.")
+        else:
+            ath_agg.add_skill("Great upper-body strength.")
+
+        speed = self.this_player.ath["spd"]
+        ath_grade += gfr( speed, 50, 95, 20 )
+        if speed < 50:
+            ath_agg.add_skill("Too slow on the open floor.")
+        elif speed < 75:
+            ath_agg.add_skill("Average speed on the open floor.")
+        elif speed < 85:
+            ath_agg.add_skill("Good speed on the open floor.")
+        else:
+            ath_agg.add_skill("Excellent speed on the open floor.")
+
+        nat_fit = self.this_player.ath["fit"]
+        ath_grade += gfr( nat_fit, 50, 95, 20 )
+        if nat_fit < 50:
+            ath_agg.add_skill("Very poor conditioning.")
+        elif nat_fit < 75:
+            ath_agg.add_skill("Conditioning is suspect at times.")
+
+        if ath_grade < 25:
+            ath_agg.agg_report = "Poor athletic ability for his position."
+        elif ath_grade < 50:
+            ath_agg.agg_report = "Below average athletic ability."
+        elif ath_grade < 75:
+            ath_agg.agg_report = "Good athletic ability."
+        else:
+            ath_agg.agg_report = "Exceptional athletic ability."
+
+        ath_agg.grade(ath_grade)
+        self.aggs.append(ath_agg)
+
         ''' SHOOTING AGGREGATE '''
+        # Height, range, off-ball, consistency
+        shoot_agg = Aggregate("Shooting")
+        shoot_grade = 0
+
+        shoot_grade += gfr( height, 70, 78, 10)
+        if height < 73:
+            shoot_agg.add_skill("Has difficulty getting his shot off against taller players.")
+        elif height > 75:
+            shoot_agg.add_skill("No trouble getting his shot off over defenders.")
+
+        rng = self.this_player.fun["rng"]
+        shoot_grade += gfr( rng, 20, 95, 50 )
+        if rng < 20:
+            shoot_agg.add_skill("Shooting range is very much a work in progress.")
+        elif rng < 40:
+            shoot_agg.add_skill("Range extends out to midrange.")
+        elif rng < 60:
+            shoot_agg.add_skill("Range extends out to the 3-point line.")
+        elif rng < 80:
+            shoot_agg.add_skill("Reliable from deep.")
+        else:
+            shoot_agg.add_skill("Easily knocks down shots from beyond the 3-point line.")
+
+        off_ball = self.this_player.iq["obl"]
+        shoot_grade += gfr( off_ball, 20, 95, 20 )
+        if off_ball < 20:
+            shoot_agg.add_skill("Looks completely lost when the ball is out of his hands.")
+        elif off_ball < 40:
+            shoot_agg.add_skill("Hesitant when the ball is out of this hands.")
+        elif off_ball < 60:
+            shoot_agg.add_skill("Works well off the ball.")
+        elif off_ball < 80:
+            shoot_agg.add_skill("Works to get himself open off the ball.")
+        else:
+            shoot_agg.add_skill("Easily finds open floor when the ball is out of his hands.")
+
+        consistency = self.this_player.men["cns"]
+        shoot_grade += gfr( consistency, 20, 95, 20 )
+        if consistency < 25:
+            shoot_agg.add_skill("Not consistent.")
+        elif consistency < 50:
+            shoot_agg.add_skill("Too streaky to be a reliable option.")
+        elif consistency > 74:
+            shoot_agg.add_skill("Very consistent player.")
+
+        if shoot_grade < 25:
+            shoot_agg.agg_report = "Ineffective as a jump shooter."
+        elif shoot_grade < 50:
+            shoot_agg.agg_report = "Can make jump shots in a pinch."
+        elif shoot_grade < 75:
+            shoot_agg.agg_report = "Reliable scorer from outside the paint."
+        else:
+            shoot_agg.agg_report = "Deadly shooter from all over the court."
+
+        shoot_agg.grade(shoot_grade)
+        self.aggs.append(shoot_agg)
+
+
         ''' ATTACKING AGGREGATE '''
         ''' PLAYMAKING AGGREGATE '''
         ''' PERIMETER DEFENSE AGGREGATE '''
