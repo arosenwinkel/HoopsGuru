@@ -304,6 +304,125 @@ class ProPGReport(ScoutingReport):
 
 
         ''' ATTACKING AGGREGATE '''
+        # Height, range, layup, offensive footwork, touch, handling, passing, off-hand, quickness, vertical,
+        # strength, aggressiveness
+
+        att_agg = Aggregate("Attacking")
+        att_grade = 0
+
+        att_grade += gfr( height, 70, 78, 10)
+        if height < 73:
+            shoot_agg.add_skill("Height really limits his finishing.")
+        elif height > 75:
+            shoot_agg.add_skill("Height allows him to finish in the paint.")
+
+        layup = self.this_player.fun["lay"]
+        att_grade += gfr( layup, 20, 95, 10 )
+        if layup < 30:
+            att_agg.add_skill("Not skilled enough to finish difficult layups.")
+        elif layup < 50:
+            att_agg.add_skill("Has a hard time converting difficult layups.")
+        elif layup < 80:
+            att_agg.add_skill("Converts difficult layups around defenders.")
+        else:
+            att_agg.add_skill("Uses a variety of acrobatic layups to finish around defenders with ease.")
+
+        off_ftw = self.this_player.fun["ofw"]
+        att_grade += gfr( off_ftw, 20, 75, 5 )
+        if off_ftw < 25:
+            att_agg.add_skill("Poor footwork when finishing in the paint.")
+        elif off_ftw > 50:
+            att_agg.add_skill("Good footwork gives him more opportunities in the paint.")
+
+        touch = self.this_player.fun["tou"]
+        att_grade += gfr( touch, 20, 95, 15 )
+        if touch < 30:
+            att_agg.add_skill("No touch around the rim.")
+        elif touch < 50:
+            att_agg.add_skill("Shows little touch around the rim.")
+        elif touch < 80:
+            att_agg.add_skill("Soft shooting touch around the rim.")
+        else:
+            att_agg.add_skill("Terrific touch around the rim.")
+
+        handling = self.this_player.fun["hnd"]
+        att_grade += gfr( handling, 20, 95, 15 )
+        if handling < 30:
+            att_agg.add_skill("Lacks the ball-handling skills necessary to run the offense.")
+        elif handling < 50:
+            att_agg.add_skill("Ball handling could stand to improve.")
+        elif handling < 80:
+            att_agg.add_skill("Smooth handling the ball.")
+        else:
+            att_agg.add_skill("Easily loses his man with an array of ball-handling moves.")
+
+        off_hand = self.this_player.fun["off"]
+        att_grade += gfr( off_hand, 20, 95, 10 )
+        if off_hand < 30:
+            att_agg.add_skill("Avoids using his off-hand as much as possible.")
+        elif off_hand < 50:
+            att_agg.add_skill("Sometimes uncomfortable with using his off-hand.")
+        elif off_hand < 80:
+            att_agg.add_skill("Uses his off-hand well to keep the defense off-guard.")
+        else:
+            att_agg.add_skill("Finishes equally with both hands.")
+
+        vertical = self.this_player.ath["vrt"]
+        att_grade += gfr( vertical, 20, 95, 10 )
+        if vertical < 30:
+            att_agg.add_skill("Plays exclusively below the rim.")
+        elif vertical < 50:
+            att_agg.add_skill("Limited leaping ability can hinder his finishing.")
+        elif vertical < 80:
+            att_agg.add_skill("Able to play above the rim to aid his finishing.")
+        else:
+            att_agg.add_skill("Explosive leaping allows him to easily make plays above the rim.")
+
+        quickness = self.this_player.ath["qui"]
+        att_grade += gfr( quickness, 20, 95, 10 )
+        if quickness < 30:
+            att_agg.add_skill("Poor first step makes it hard to get separation from his man.")
+        elif quickness < 50:
+            att_agg.add_skill("Below average first step.")
+        elif quickness < 80:
+            att_agg.add_skill("Above average first step helps him drive to the basket.")
+        else:
+            att_agg.add_skill("Lightning first step allows him to beat his man with ease.")
+
+        strength = self.this_player.ath["str"]
+        att_grade += gfr( strength, 10, 60, 10 )
+        if strength < 20:
+            att_agg.add_skill("Too weak to finish through contact.")
+        elif strength < 40:
+            att_agg.add_skill("Uses his strength to finish through smaller defenders.")
+        else:
+            att_agg.add_skill("Strong enough to finish through larger defenders.")
+
+        aggressiveness = self.this_player.men["agg"]
+        att_grade += gfr( aggressiveness, 20, 95, 5 )
+        if aggressiveness < 30:
+            att_agg.add_skill("Contact-shy around the rim.")
+        elif aggressiveness < 50:
+            att_agg.add_skill("Able to absorb contact in order to finish.")
+        elif aggressiveness < 80:
+            att_agg.add_skill("Willing to absorb contact in order to finish.")
+        else:
+            att_agg.add_skill("Fearless at driving to the rim.")
+
+        if att_grade < 20:
+            att_agg.agg_report = "Very poor finisher."
+        elif att_grade < 40:
+            att_agg.agg_report = "Below average finisher."
+        elif att_grade < 60:
+            att_agg.agg_report = "Average finisher."
+        elif att_grade < 80:
+            att_agg.agg_report = "Skilled finisher."
+        else:
+            att_agg.agg_report = "Fantastic finisher around the rim."
+
+        att_agg.grade(att_grade)
+        self.aggs.append(att_agg)
+
         ''' PLAYMAKING AGGREGATE '''
         ''' PERIMETER DEFENSE AGGREGATE '''
         ''' REBOUNDING AGGREGATE '''
