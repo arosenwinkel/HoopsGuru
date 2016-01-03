@@ -436,7 +436,7 @@ class ProPGReport(ScoutingReport):
             pmk_agg.add_skill("Height allows him to see over the defense.")
 
         passing = self.this_player.fun["pas"]
-        pmk_grade += gfr( passing, 30, 95, 10 )
+        pmk_grade += gfr( passing, 30, 95, 20 )
         if passing < 30:
             pmk_agg.add_skill("Passing ability really limits ability to run the offense.")
         elif passing < 50:
@@ -458,7 +458,7 @@ class ProPGReport(ScoutingReport):
             pmk_agg.add_skill("Uses incredible ball-handling ability to break ankles with ease.")
 
         decisions = self.this_player.iq["dec"]
-        pmk_grade += gfr( decisions, 20, 95, 15 )
+        pmk_grade += gfr( decisions, 20, 95, 20 )
         if decisions < 30:
             pmk_agg.add_skill("Poor decision-making leads to costly turnovers.")
         elif decisions < 50:
@@ -469,7 +469,7 @@ class ProPGReport(ScoutingReport):
             pmk_agg.add_skill("Excellent decision-making: sees the game in slow motion.")
 
         vision = self.this_player.iq["vis"]
-        pmk_grade += gfr( vision, 20, 95, 15 )
+        pmk_grade += gfr( vision, 20, 95, 20 )
         if vision < 30:
             pmk_agg.add_skill("Prone to tunnel vision when he has the ball.")
         elif vision < 50:
