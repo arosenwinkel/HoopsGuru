@@ -424,6 +424,98 @@ class ProPGReport(ScoutingReport):
         self.aggs.append(att_agg)
 
         ''' PLAYMAKING AGGREGATE '''
+        # passing, handling, decision making, anticipation, court vision, creativity, ego
+
+        pmk_agg = Aggregate("Playmaking")
+        pmk_grade = 0
+
+        pmk_grade += gfr( height, 70, 78, 10)
+        if height < 72:
+            pmk_agg.add_skill("Too short to see over the defense.")
+        elif height > 75:
+            pmk_agg.add_skill("Height allows him to see over the defense.")
+
+        passing = self.this_player.fun["pas"]
+        pmk_grade += gfr( passing, 30, 95, 10 )
+        if passing < 30:
+            pmk_agg.add_skill("Passing ability really limits ability to run the offense.")
+        elif passing < 50:
+            pmk_agg.add_skill("Only an adequate passer, can struggle making the simple play.")
+        elif passing < 80:
+            pmk_agg.add_skill("No problem making difficult passes.")
+        else:
+            pmk_agg.add_skill("Uses impressive arsenal of passes to distribute the ball.")
+
+        handling = self.this_player.fun["hnd"]
+        pmk_grade += gfr( handling, 30, 95, 10 )
+        if handling < 30:
+            pmk_agg.add_skill("Limited ball-handler.")
+        elif handling < 50:
+            pmk_agg.add_skill("Average ball-handling ability.")
+        elif handling < 80:
+            pmk_agg.add_skill("Uses ball-handling ability to create open shots for himself and others.")
+        else:
+            pmk_agg.add_skill("Uses incredible ball-handling ability to break ankles with ease.")
+
+        decisions = self.this_player.iq["dec"]
+        pmk_grade += gfr( decisions, 20, 95, 15 )
+        if decisions < 30:
+            pmk_agg.add_skill("Poor decision-making leads to costly turnovers.")
+        elif decisions < 50:
+            pmk_agg.add_skill("Can sometimes be pressured into poor decisions.")
+        elif decisions < 80:
+            pmk_agg.add_skill("Makes good decisions with the ball.")
+        else:
+            pmk_agg.add_skill("Excellent decision-making: sees the game in slow motion.")
+
+        vision = self.this_player.iq["vis"]
+        pmk_grade += gfr( vision, 20, 95, 15 )
+        if vision < 30:
+            pmk_agg.add_skill("Prone to tunnel vision when he has the ball.")
+        elif vision < 50:
+            pmk_agg.add_skill("Can occasionally miss open teammates with the ball.")
+        elif vision < 80:
+            pmk_agg.add_skill("Rarely misses playmaking opportunities with the ball.")
+        else:
+            pmk_agg.add_skill("Able to effortlessly find open shooters: eyes on the back of his head.")
+
+        creativity = self.this_player.iq["crt"]
+        pmk_grade += gfr( creativity, 20, 95, 10 )
+        if creativity < 30:
+            pass
+        elif creativity < 50:
+            pmk_agg.add_skill("Can be predictable at times.")
+        elif creativity < 80:
+            pass
+        else:
+            pmk_agg.add_skill("Creativity allows him to easily make plays that keep the defense guessing.")
+
+        ego = self.this_player.men["ego"]
+        pmk_grade += gfr( ego, 20, 95, 10 )
+        if ego < 30:
+            pmk_agg.add_skill("Notorious black hole for the ball.")
+        elif ego < 50:
+            pmk_agg.add_skill("Tends to over-dribble.")
+        elif ego < 80:
+            pmk_agg.add_skill("Doesn't let desire to score come before the team.")
+        else:
+            pmk_agg.add_skill("Selfless passer, prefers setting teammates up with easy scores.")
+
+        if pmk_grade < 20:
+            pmk_agg.agg_report = "Limited playmaking ability."
+        elif pmk_grade < 40:
+            pmk_agg.agg_report = "Below average playmaking ability."
+        elif pmk_grade < 60:
+            pmk_agg.agg_report = "Average playmaker."
+        elif pmk_grade < 80:
+            pmk_agg.agg_report = "Skilled playmaker."
+        else:
+            pmk_agg.agg_report = "Maestro of the half-court offense."
+
+        pmk_agg.grade(pmk_grade)
+        self.aggs.append(pmk_agg)
+
+
         ''' PERIMETER DEFENSE AGGREGATE '''
         ''' REBOUNDING AGGREGATE '''
         ''' MENTAL AGGREGATE '''
