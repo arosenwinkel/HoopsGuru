@@ -663,6 +663,113 @@ class ProPGReport(ScoutingReport):
         self.aggs.append(pmd_agg)
 
         ''' REBOUNDING AGGREGATE '''
+        # wingspan, boxout, vertical, strength, reactions, anticipation, aggressiveness, motor
+
+        reb_agg = Aggregate("Rebounding")
+        reb_grade = 0
+
+        wingspan = self.this_player.wng
+        reb_grade += gfr( wingspan, 70, 84, 20)
+        if wingspan < 74:
+            reb_agg.add_skill("Lack of length greatly limits ability as a rebounder.")
+        elif wingspan < 78:
+            reb_agg.add_skill("Only average length for the position.")
+        elif wingspan < 82:
+            reb_agg.add_skill("Uses his long arms to pull down tough rebounds.")
+        else:
+            reb_agg.add_skill("Incredible wingspan makes him a natural rebounder.")
+
+        boxout = self.this_player.fun["box"]
+        reb_grade += gfr( boxout, 20, 95, 15 )
+        if boxout < 20:
+            reb_agg.add_skill("Constantly loses track of his man when boxing out.")
+        elif boxout < 40:
+            reb_agg.add_skill("Below average rebounding fundamentals.")
+        elif boxout < 60:
+            reb_agg.add_skill("Boxes out well to secure boards for his team.")
+        else:
+            reb_agg.add_skill("Always boxes his man out to ensure that his team gets the rebound.")
+
+        vertical = self.this_player.ath["vrt"]
+        reb_grade += gfr( vertical, 20, 95, 15 )
+        if vertical < 30:
+            reb_agg.add_skill("Poor leaper.")
+        elif vertical < 50:
+            reb_agg.add_skill("Below-average leaping ability.")
+        elif vertical < 80:
+            reb_agg.add_skill("Impressive vertical leaping ability.")
+        else:
+            reb_agg.add_skill("Incredibly explosive leaper.")
+
+        strength = self.this_player.ath["str"]
+        reb_grade += gfr( strength, 20, 95, 10 )
+        if strength < 20:
+            reb_agg.add_skill("Lack of strengths makes it easy to snatch rebounds out of his hands.")
+        elif strength < 40:
+            reb_agg.add_skill("Can sometimes be overpowered by bigger opponents.")
+        elif strength < 60:
+            reb_agg.add_skill("Good strength for his position")
+        else:
+            reb_agg.add_skill("Able to wrestle tough rebounds away from bigger defenders.")
+
+        reactions = self.this_player.iq["rct"]
+        reb_grade += gfr( reactions, 20, 95, 10 )
+        if reactions < 30:
+            reb_agg.add_skill("Has a hard time reacting to the ball once it hits the rim.")
+        elif reactions < 50:
+            reb_agg.add_skill("Not very quick to react to the ball once it hits the rim.")
+        elif reactions < 80:
+            reb_agg.add_skill("Makes adjustments once the ball hits the rim.")
+        else:
+            reb_agg.add_skill("Easily makes adjustments on the fly to grab difficult boards.")
+
+        anticipation = self.this_player.iq["ant"]
+        reb_grade += gfr( anticipation, 20, 95, 10 )
+        if anticipation < 30:
+            reb_agg.add_skill("Shows little to no anticipation for the ball.")
+        elif anticipation < 50:
+            reb_agg.add_skill("Has a hard time anticipating which trajectory the ball will take.")
+        elif anticipation < 80:
+            reb_agg.add_skill("Anticipates the trajectory of the ball.")
+        else:
+            reb_agg.add_skill("Knows exactly where to be to have the best chance of securing the rebound.")
+
+        aggressiveness = self.this_player.men["agg"]
+        reb_grade += gfr( aggressiveness, 20, 95, 10 )
+        if aggressiveness < 30:
+            reb_agg.add_skill("Avoids contact whenever possible when rebounding.")
+        elif aggressiveness < 50:
+            reb_agg.add_skill("Sometimes seems afraid to go for tough rebounds.")
+        elif aggressiveness < 80:
+            reb_agg.add_skill("No problem going for tough rebounds.")
+        else:
+            reb_agg.add_skill("Fearless in his pursuit of difficult rebounds.")
+
+        motor = self.this_player.men["mtr"]
+        reb_grade += gfr( motor, 20, 95, 10 )
+        if motor < 30:
+            reb_agg.add_skill("Gives up on rebounds that aren't near him.")
+        elif motor < 50:
+            pass
+        elif motor < 80:
+            reb_agg.add_skill("Hustles to grab far-away rebounds.")
+        else:
+            reb_agg.add_skill("Relentlessly pursues all possible.")
+
+        if reb_grade < 20:
+            reb_agg.agg_report = "Limited rebounder."
+        elif reb_grade < 40:
+            reb_agg.agg_report = "Below average rebounding ability."
+        elif reb_grade < 60:
+            reb_agg.agg_report = "Average rebounding ability."
+        elif reb_grade < 80:
+            reb_agg.agg_report = "Good rebounder."
+        else:
+            reb_agg.agg_report = "Excellent rebounder."
+
+        reb_agg.grade(reb_grade)
+        self.aggs.append(reb_agg)
+
         ''' MENTAL AGGREGATE '''
         ''' DURABILITY AGGREGATE '''
 
