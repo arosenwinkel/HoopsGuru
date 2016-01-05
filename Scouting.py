@@ -517,6 +517,151 @@ class ProPGReport(ScoutingReport):
 
 
         ''' PERIMETER DEFENSE AGGREGATE '''
+        # Def footwork, quickness, vertical, strength, fitness, coordination, decisions, reactions, anticipation,
+        # focus, motor, wingspan
+
+        pmd_agg = Aggregate("Perimeter Defense")
+        pmd_grade = 0
+
+        wingspan = self.this_player.wng
+        pmd_grade += gfr( wingspan, 70, 84, 15)
+        if wingspan < 74:
+            pmd_agg.add_skill("Length greatly limits ability as a perimeter defender.")
+        elif wingspan < 78:
+            pass
+        elif wingspan < 82:
+            pmd_agg.add_skill("Uses long arms to bother his matchup.")
+        else:
+            pmd_agg.add_skill("Uses his freakish wingspan to smother his matchup.")
+
+
+        d_ftw = self.this_player.fun["dfw"]
+        pmd_grade += gfr( d_ftw, 30, 95, 10 )
+        if d_ftw < 30:
+            pmd_agg.add_skill("Poor defensive fundamentals.")
+        elif d_ftw < 50:
+            pmd_agg.add_skill("Acceptable defensive fundamentals.")
+        elif d_ftw < 80:
+            pmd_agg.add_skill("Good defensive fundamentals.")
+        else:
+            pmd_agg.add_skill("Uses exceptional defensive footwork to stay in front of quicker opponents.")
+
+        quickness = self.this_player.ath["qui"]
+        pmd_grade += gfr( quickness, 30, 95, 15 )
+        if quickness < 30:
+            pmd_agg.add_skill("Frequently exposed by quick ball-handlers.")
+        elif quickness < 50:
+            pmd_agg.add_skill("Below average lateral quickness.")
+        elif quickness < 80:
+            pmd_agg.add_skill("Above average lateral quickness.")
+        else:
+            pmd_agg.add_skill("Terrific lateral quickness.")
+
+        vertical = self.this_player.ath["vrt"]
+        pmd_grade += gfr( vertical, 20, 95, 5 )
+        if vertical < 30:
+            pmd_agg.add_skill("Doesn't have the leaping ability to contest shots effectively.")
+        elif vertical < 50:
+            pmd_agg.add_skill("Able to challenge shots from smaller opponents.")
+        elif vertical < 80:
+            pmd_agg.add_skill("Leaping ability improves ability to challenge perimeter shots.")
+        else:
+            pmd_agg.add_skill("Explosive leaping ability makes him a terror against jump-shooters.")
+
+        strength = self.this_player.ath["str"]
+        pmd_grade += gfr( strength, 20, 50, 5 )
+        if strength < 30:
+            pmd_agg.add_skill("Lack of strength gives him a hard time fighting through screens.")
+        elif strength > 49:
+            pmd_agg.add_skill("Easily fights through screens to challenge shooters.")
+
+        fitness = self.this_player.ath["fit"]
+        pmd_grade += gfr( fitness, 20, 95, 5 )
+        if fitness < 30:
+            pmd_agg.add_skill("Poor conditioning makes defense really suffer at the end of games.")
+        elif fitness < 70:
+            pass
+        else:
+            pmd_agg.add_skill("Able to chase quick guards around screens all night long.")
+
+        coordination = self.this_player.ath["coo"]
+        pmd_grade += gfr( coordination, 20, 95, 5 )
+        if coordination < 30:
+            pmd_agg.add_skill("Lacks the body control necessary to contest shots without fouling.")
+        elif coordination < 50:
+            pmd_agg.add_skill("Can sometimes be pump-faked into a foul.")
+        elif coordination < 80:
+            pass
+        else:
+            pmd_agg.add_skill("Impeccable body control makes it easy to defend without fouling.")
+
+        decisions = self.this_player.iq["dec"]
+        pmd_grade += gfr( decisions, 20, 95, 5 )
+        if decisions < 30:
+            pmd_agg.add_skill("Gambles for steals, giving up big plays.")
+        elif decisions < 50:
+            pmd_agg.add_skill("Sometimes displays poor decision making.")
+        elif decisions < 80:
+            pmd_agg.add_skill("Displays good decision making on defense.")
+        else:
+            pmd_agg.add_skill("Always knows when to play it safe and when to go for big plays.")
+
+        reactions = self.this_player.iq["rct"]
+        pmd_grade += gfr( reactions, 20, 95, 15 )
+        if reactions < 30:
+            pmd_agg.add_skill("Usually the last player on the court to notice loose balls.")
+        elif reactions < 50:
+            pmd_agg.add_skill("Sometimes a step slow reacting to opponents.")
+        elif reactions < 80:
+            pmd_agg.add_skill("Reacts well to quick opponents.")
+        else:
+            pmd_agg.add_skill("Able to seamlessly mirror opponents movements on defense.")
+
+        anticipation = self.this_player.iq["ant"]
+        pmd_grade += gfr( anticipation, 20, 95, 15 )
+        if anticipation < 30:
+            pmd_agg.add_skill("Always in the wrong place on defense.")
+        elif anticipation < 50:
+            pmd_agg.add_skill("Sometimes fails to anticipate, leaving him out of position.")
+        elif anticipation < 80:
+            pmd_agg.add_skill("Anticipates steals well.")
+        else:
+            pmd_agg.add_skill("Always in the right place at the right time on defense.")
+
+        focus = self.this_player.iq["foc"]
+        pmd_grade += gfr( focus, 20, 95, 10 )
+        if focus < 30:
+            pmd_agg.add_skill("Constantly loses his man when defending off-ball.")
+        elif focus < 50:
+            pmd_agg.add_skill("Can get caught ball-watching sometimes.")
+        elif focus < 80:
+            pmd_agg.add_skill("Rarely loses his man when defending off-ball.")
+        else:
+            pmd_agg.add_skill("Always defensively locked in.")
+
+        motor = self.this_player.men["mtr"]
+        pmd_grade += gfr( motor, 20, 95, 5 )
+        if motor < 30:
+            pmd_agg.add_skill("Gives up too easily on the play.")
+        elif motor < 70:
+            pass
+        else:
+            pmd_agg.add_skill("Refuses to give up on the play.")
+
+        if pmd_grade < 20:
+            pmd_agg.agg_report = "Limited perimeter defense."
+        elif pmd_grade < 40:
+            pmd_agg.agg_report = "Below average perimeter defense."
+        elif pmd_grade < 60:
+            pmd_agg.agg_report = "Average perimeter defender."
+        elif pmd_grade < 80:
+            pmd_agg.agg_report = "Skilled perimeter defender."
+        else:
+            pmd_agg.agg_report = "Lockdown perimeter defender."
+
+        pmd_agg.grade(pmd_grade)
+        self.aggs.append(pmd_agg)
+
         ''' REBOUNDING AGGREGATE '''
         ''' MENTAL AGGREGATE '''
         ''' DURABILITY AGGREGATE '''
