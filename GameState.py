@@ -19,7 +19,7 @@ class State:  # what is instantiated when the user opens the game
         ath = ["qui", "vrt", "str", "spd", "fit", "coo"]
         iq = ["dec", "rct", "obl", "ant", "vis", "crt", "foc"]
 
-        for i in range(1, 10 + 1):
+        for i in range(1, 1000 + 1):
             this_p = self.db.read_player(i)  # read the player in
             print("Player {}: {} {}, template: {}, {}/{}, {} y.o. {} height, {} wingspan, {} lbs.".format(
                 this_p.id, this_p.fnm, this_p.lnm, this_p.tmp, this_p.ps1, this_p.ps2, this_p.age,
@@ -37,7 +37,7 @@ class State:  # what is instantiated when the user opens the game
             print()
 
     def scout(self):
-        for i in range(1, 10+1):
+        for i in range(1, 1000+1):
             this_p = self.db.read_player(i)
             s = Scouting.scout_pro_primary(this_p)
             s.scout()
@@ -138,7 +138,7 @@ class State:  # what is instantiated when the user opens the game
                 self.new_game()
 
                 print("Automatically creating players...", end="")
-                amount = 100
+                amount = 1000
                 for i in range(amount):
                     self.db.create_player()  # create, add to write queue
                 print("done.")

@@ -99,7 +99,7 @@ template_list.append(temp2)
 temp3 = Template("temp3", "PG", "SG", 85, [  # Russell Westbrook, athletic scoring guard
     75.5, 1.056, 2.543,
     75, 80, 45, 70, 75, 50, 30, 50, 70, 80,
-    90, 85, 50, 95, 90, 70,
+    95, 85, 50, 95, 90, 70,
     50, 60, 60, 55, 50, 60, 60
 ])
 template_list.append(temp3)
