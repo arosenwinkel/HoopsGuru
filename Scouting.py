@@ -122,6 +122,7 @@ class ScoutingReport:
             print("{}/{}".format(self.this_player.ps1, self.this_player.ps2))
         else:
             print(self.this_player.ps1)
+        print("Template: {}".format(self.this_player.tmp))
         print("Height: {}, Wingspan: {}, Weight: {} lbs.".format(repr_length(self.this_player.hgt), 
             repr_length(self.this_player.wng), self.this_player.wgt))
 
@@ -138,7 +139,7 @@ class ProPGReport(ScoutingReport):
         size_agg = Aggregate("Size")
         size_grade = 0
         height = self.this_player.hgt
-        size_grade += gfr( height, 70, 77, 50)
+        size_grade += gfr( height, 57, 77, 50)
         if height < 71:
             size_agg.add_skill("Short for his position at {}".format(repr_length(height)))
         elif height < 73:
@@ -251,14 +252,14 @@ class ProPGReport(ScoutingReport):
         shoot_agg = Aggregate("Shooting")
         shoot_grade = 0
 
-        shoot_grade += gfr( height, 69, 78, 10)
+        shoot_grade += gfr( height, 67, 76, 10)
         if height < 73:
             shoot_agg.add_skill("Has difficulty getting his shot off against taller players.")
         elif height > 75:
             shoot_agg.add_skill("No trouble getting his shot off over defenders.")
 
         rng = self.this_player.fun["rng"]
-        shoot_grade += gfr( rng, 20, 85, 50 )
+        shoot_grade += gfr( rng, 1, 85, 30 )
         if rng < 20:
             shoot_agg.add_skill("Shooting range is very much a work in progress.")
         elif rng < 40:
@@ -270,8 +271,21 @@ class ProPGReport(ScoutingReport):
         else:
             shoot_agg.add_skill("Easily knocks down shots from beyond the 3-point line.")
 
+        handling = self.this_player.fun["hnd"]
+        shoot_grade += gfr( handling, 1, 85, 20 )
+        if handling < 20:
+            shoot_agg.add_skill("No scoring ability off the dribble.")
+        elif handling < 40:
+            shoot_agg.add_skill("Rarely able to hit jumpers off of the dribble.")
+        elif handling < 60:
+            shoot_agg.add_skill("Can sometimes make jumpers off of the dribble.")
+        elif handling < 80:
+            shoot_agg.add_skill("Comfortable hitting jumpers off of the dribble.")
+        else:
+            shoot_agg.add_skill("Deadly hitting jumpers off of the dribble.")
+
         off_ball = self.this_player.iq["obl"]
-        shoot_grade += gfr( off_ball, 20, 85, 20 )
+        shoot_grade += gfr( off_ball, 1, 85, 20 )
         if off_ball < 20:
             shoot_agg.add_skill("Looks completely lost when the ball is out of his hands.")
         elif off_ball < 40:
@@ -284,7 +298,7 @@ class ProPGReport(ScoutingReport):
             shoot_agg.add_skill("Easily finds open floor when the ball is out of his hands.")
 
         consistency = self.this_player.men["cns"]
-        shoot_grade += gfr( consistency, 20, 85, 20 )
+        shoot_grade += gfr( consistency, 1, 60, 20 )
         if consistency < 25:
             shoot_agg.add_skill("Not consistent.")
         elif consistency < 50:
@@ -319,7 +333,7 @@ class ProPGReport(ScoutingReport):
             att_agg.add_skill("Height allows him to finish in the paint.")
 
         layup = self.this_player.fun["lay"]
-        att_grade += gfr( layup, 20, 85, 10 )
+        att_grade += gfr( layup, 1, 85, 10 )
         if layup < 30:
             att_agg.add_skill("Not skilled enough to finish difficult layups.")
         elif layup < 50:
@@ -330,14 +344,14 @@ class ProPGReport(ScoutingReport):
             att_agg.add_skill("Uses a variety of acrobatic layups to finish around defenders with ease.")
 
         off_ftw = self.this_player.fun["ofw"]
-        att_grade += gfr( off_ftw, 20, 75, 5 )
+        att_grade += gfr( off_ftw, 1, 75, 5 )
         if off_ftw < 25:
             att_agg.add_skill("Poor footwork when finishing in the paint.")
         elif off_ftw > 50:
             att_agg.add_skill("Good footwork gives him more opportunities in the paint.")
 
         touch = self.this_player.fun["tou"]
-        att_grade += gfr( touch, 20, 85, 15 )
+        att_grade += gfr( touch, 1, 85, 15 )
         if touch < 30:
             att_agg.add_skill("No touch around the rim.")
         elif touch < 50:
@@ -348,7 +362,7 @@ class ProPGReport(ScoutingReport):
             att_agg.add_skill("Terrific touch around the rim.")
 
         handling = self.this_player.fun["hnd"]
-        att_grade += gfr( handling, 20, 85, 15 )
+        att_grade += gfr( handling, 1, 85, 15 )
         if handling < 30:
             att_agg.add_skill("Lacks the ball-handling skills necessary to run the offense.")
         elif handling < 50:
@@ -359,7 +373,7 @@ class ProPGReport(ScoutingReport):
             att_agg.add_skill("Easily loses his man with an array of ball-handling moves.")
 
         off_hand = self.this_player.fun["off"]
-        att_grade += gfr( off_hand, 20, 85, 10 )
+        att_grade += gfr( off_hand, 1, 85, 10 )
         if off_hand < 30:
             att_agg.add_skill("Avoids using his off-hand as much as possible.")
         elif off_hand < 50:
@@ -370,7 +384,7 @@ class ProPGReport(ScoutingReport):
             att_agg.add_skill("Finishes equally with both hands.")
 
         vertical = self.this_player.ath["vrt"]
-        att_grade += gfr( vertical, 20, 85, 10 )
+        att_grade += gfr( vertical, 1, 85, 10 )
         if vertical < 30:
             att_agg.add_skill("Plays exclusively below the rim.")
         elif vertical < 50:
@@ -381,7 +395,7 @@ class ProPGReport(ScoutingReport):
             att_agg.add_skill("Explosive leaping allows him to easily make plays above the rim.")
 
         quickness = self.this_player.ath["qui"]
-        att_grade += gfr( quickness, 20, 85, 10 )
+        att_grade += gfr( quickness, 1, 85, 10 )
         if quickness < 30:
             att_agg.add_skill("Poor first step makes it hard to get separation from his man.")
         elif quickness < 50:
@@ -392,7 +406,7 @@ class ProPGReport(ScoutingReport):
             att_agg.add_skill("Lightning first step allows him to beat his man with ease.")
 
         strength = self.this_player.ath["str"]
-        att_grade += gfr( strength, 10, 60, 10 )
+        att_grade += gfr( strength, 1, 60, 10 )
         if strength < 20:
             att_agg.add_skill("Too weak to finish through contact.")
         elif strength < 40:
@@ -401,7 +415,7 @@ class ProPGReport(ScoutingReport):
             att_agg.add_skill("Strong enough to finish through larger defenders.")
 
         aggressiveness = self.this_player.men["agg"]
-        att_grade += gfr( aggressiveness, 20, 85, 5 )
+        att_grade += gfr( aggressiveness, 1, 85, 5 )
         if aggressiveness < 30:
             att_agg.add_skill("Contact-shy around the rim.")
         elif aggressiveness < 50:
@@ -431,14 +445,14 @@ class ProPGReport(ScoutingReport):
         pmk_agg = Aggregate("Playmaking")
         pmk_grade = 0
 
-        pmk_grade += gfr( height, 70, 78, 10)
+        pmk_grade += gfr( height, 67, 78, 10)
         if height < 72:
             pmk_agg.add_skill("Too short to see over the defense.")
         elif height > 75:
             pmk_agg.add_skill("Height allows him to see over the defense.")
 
         passing = self.this_player.fun["pas"]
-        pmk_grade += gfr( passing, 30, 85, 20 )
+        pmk_grade += gfr( passing, 1, 85, 20 )
         if passing < 30:
             pmk_agg.add_skill("Passing ability really limits ability to run the offense.")
         elif passing < 50:
@@ -449,7 +463,7 @@ class ProPGReport(ScoutingReport):
             pmk_agg.add_skill("Uses impressive arsenal of passes to distribute the ball.")
 
         handling = self.this_player.fun["hnd"]
-        pmk_grade += gfr( handling, 30, 85, 10 )
+        pmk_grade += gfr( handling, 1, 85, 10 )
         if handling < 30:
             pmk_agg.add_skill("Limited ball-handler.")
         elif handling < 50:
@@ -460,7 +474,7 @@ class ProPGReport(ScoutingReport):
             pmk_agg.add_skill("Uses incredible ball-handling ability to break ankles with ease.")
 
         decisions = self.this_player.iq["dec"]
-        pmk_grade += gfr( decisions, 20, 85, 20 )
+        pmk_grade += gfr( decisions, 1, 85, 20 )
         if decisions < 30:
             pmk_agg.add_skill("Poor decision-making leads to costly turnovers.")
         elif decisions < 50:
@@ -471,7 +485,7 @@ class ProPGReport(ScoutingReport):
             pmk_agg.add_skill("Excellent decision-making: sees the game in slow motion.")
 
         vision = self.this_player.iq["vis"]
-        pmk_grade += gfr( vision, 20, 85, 20 )
+        pmk_grade += gfr( vision, 1, 85, 20 )
         if vision < 30:
             pmk_agg.add_skill("Prone to tunnel vision when he has the ball.")
         elif vision < 50:
@@ -482,7 +496,7 @@ class ProPGReport(ScoutingReport):
             pmk_agg.add_skill("Able to effortlessly find open shooters: eyes on the back of his head.")
 
         creativity = self.this_player.iq["crt"]
-        pmk_grade += gfr( creativity, 20, 85, 10 )
+        pmk_grade += gfr( creativity, 1, 85, 10 )
         if creativity < 30:
             pass
         elif creativity < 50:
@@ -493,7 +507,7 @@ class ProPGReport(ScoutingReport):
             pmk_agg.add_skill("Creativity allows him to easily make plays that keep the defense guessing.")
 
         ego = self.this_player.men["ego"]
-        pmk_grade += gfr( ego, 20, 85, 10 )
+        pmk_grade += gfr( ego, 10, 60, 10 )
         if ego < 30:
             pmk_agg.add_skill("Notorious black hole for the ball.")
         elif ego < 50:
@@ -538,7 +552,7 @@ class ProPGReport(ScoutingReport):
 
 
         d_ftw = self.this_player.fun["dfw"]
-        pmd_grade += gfr( d_ftw, 30, 85, 10 )
+        pmd_grade += gfr( d_ftw, 1, 85, 10 )
         if d_ftw < 30:
             pmd_agg.add_skill("Poor defensive fundamentals.")
         elif d_ftw < 50:
@@ -549,7 +563,7 @@ class ProPGReport(ScoutingReport):
             pmd_agg.add_skill("Uses exceptional defensive footwork to stay in front of quicker opponents.")
 
         quickness = self.this_player.ath["qui"]
-        pmd_grade += gfr( quickness, 30, 85, 15 )
+        pmd_grade += gfr( quickness, 1, 85, 15 )
         if quickness < 30:
             pmd_agg.add_skill("Frequently exposed by quick ball-handlers.")
         elif quickness < 50:
@@ -560,7 +574,7 @@ class ProPGReport(ScoutingReport):
             pmd_agg.add_skill("Terrific lateral quickness.")
 
         vertical = self.this_player.ath["vrt"]
-        pmd_grade += gfr( vertical, 20, 85, 5 )
+        pmd_grade += gfr( vertical, 1, 85, 5 )
         if vertical < 30:
             pmd_agg.add_skill("Doesn't have the leaping ability to contest shots effectively.")
         elif vertical < 50:
@@ -571,14 +585,14 @@ class ProPGReport(ScoutingReport):
             pmd_agg.add_skill("Explosive leaping ability makes him a terror against jump-shooters.")
 
         strength = self.this_player.ath["str"]
-        pmd_grade += gfr( strength, 20, 50, 5 )
+        pmd_grade += gfr( strength, 1, 50, 5 )
         if strength < 30:
             pmd_agg.add_skill("Lack of strength gives him a hard time fighting through screens.")
         elif strength > 49:
             pmd_agg.add_skill("Easily fights through screens to challenge shooters.")
 
         fitness = self.this_player.ath["fit"]
-        pmd_grade += gfr( fitness, 20, 85, 5 )
+        pmd_grade += gfr( fitness, 1, 85, 5 )
         if fitness < 30:
             pmd_agg.add_skill("Poor conditioning makes defense really suffer at the end of games.")
         elif fitness < 70:
@@ -587,7 +601,7 @@ class ProPGReport(ScoutingReport):
             pmd_agg.add_skill("Able to chase quick guards around screens all night long.")
 
         coordination = self.this_player.ath["coo"]
-        pmd_grade += gfr( coordination, 20, 85, 5 )
+        pmd_grade += gfr( coordination, 1, 85, 5 )
         if coordination < 30:
             pmd_agg.add_skill("Lacks the body control necessary to contest shots without fouling.")
         elif coordination < 50:
@@ -598,7 +612,7 @@ class ProPGReport(ScoutingReport):
             pmd_agg.add_skill("Impeccable body control makes it easy to defend without fouling.")
 
         decisions = self.this_player.iq["dec"]
-        pmd_grade += gfr( decisions, 20, 85, 5 )
+        pmd_grade += gfr( decisions, 1, 85, 5 )
         if decisions < 30:
             pmd_agg.add_skill("Gambles for steals, giving up big plays.")
         elif decisions < 50:
@@ -609,7 +623,7 @@ class ProPGReport(ScoutingReport):
             pmd_agg.add_skill("Always knows when to play it safe and when to go for big plays.")
 
         reactions = self.this_player.iq["rct"]
-        pmd_grade += gfr( reactions, 20, 85, 15 )
+        pmd_grade += gfr( reactions, 1, 85, 15 )
         if reactions < 30:
             pmd_agg.add_skill("Usually the last player on the court to notice loose balls.")
         elif reactions < 50:
@@ -620,7 +634,7 @@ class ProPGReport(ScoutingReport):
             pmd_agg.add_skill("Able to seamlessly mirror opponents movements on defense.")
 
         anticipation = self.this_player.iq["ant"]
-        pmd_grade += gfr( anticipation, 20, 85, 15 )
+        pmd_grade += gfr( anticipation, 1, 85, 15 )
         if anticipation < 30:
             pmd_agg.add_skill("Always in the wrong place on defense.")
         elif anticipation < 50:
@@ -631,7 +645,7 @@ class ProPGReport(ScoutingReport):
             pmd_agg.add_skill("Always in the right place at the right time on defense.")
 
         focus = self.this_player.iq["foc"]
-        pmd_grade += gfr( focus, 20, 85, 10 )
+        pmd_grade += gfr( focus, 1, 85, 10 )
         if focus < 30:
             pmd_agg.add_skill("Constantly loses his man when defending off-ball.")
         elif focus < 50:
@@ -642,7 +656,7 @@ class ProPGReport(ScoutingReport):
             pmd_agg.add_skill("Always defensively locked in.")
 
         motor = self.this_player.men["mtr"]
-        pmd_grade += gfr( motor, 20, 85, 5 )
+        pmd_grade += gfr( motor, 1, 85, 5 )
         if motor < 30:
             pmd_agg.add_skill("Gives up too easily on the play.")
         elif motor < 70:
@@ -671,7 +685,7 @@ class ProPGReport(ScoutingReport):
         reb_grade = 0
 
         wingspan = self.this_player.wng
-        reb_grade += gfr( wingspan, 70, 84, 20)
+        reb_grade += gfr( wingspan, 67, 84, 20)
         if wingspan < 78:
             reb_agg.add_skill("Lack of length greatly limits ability as a rebounder.")
         elif wingspan < 81:
@@ -682,7 +696,7 @@ class ProPGReport(ScoutingReport):
             reb_agg.add_skill("Incredible wingspan makes him a natural rebounder.")
 
         boxout = self.this_player.fun["box"]
-        reb_grade += gfr( boxout, 20, 50, 15 )
+        reb_grade += gfr( boxout, 1, 50, 15 )
         if boxout < 20:
             reb_agg.add_skill("Constantly loses track of his man when boxing out.")
         elif boxout < 40:
@@ -693,7 +707,7 @@ class ProPGReport(ScoutingReport):
             reb_agg.add_skill("Always boxes his man out to ensure that his team gets the rebound.")
 
         vertical = self.this_player.ath["vrt"]
-        reb_grade += gfr( vertical, 20, 85, 15 )
+        reb_grade += gfr( vertical, 1, 85, 15 )
         if vertical < 30:
             reb_agg.add_skill("Poor leaper.")
         elif vertical < 50:
@@ -704,7 +718,7 @@ class ProPGReport(ScoutingReport):
             reb_agg.add_skill("Incredibly explosive leaper.")
 
         strength = self.this_player.ath["str"]
-        reb_grade += gfr( strength, 20, 50, 10 )
+        reb_grade += gfr( strength, 1, 50, 10 )
         if strength < 20:
             reb_agg.add_skill("Lack of strengths makes it easy to snatch rebounds out of his hands.")
         elif strength < 40:
@@ -715,7 +729,7 @@ class ProPGReport(ScoutingReport):
             reb_agg.add_skill("Able to wrestle tough rebounds away from bigger defenders.")
 
         reactions = self.this_player.iq["rct"]
-        reb_grade += gfr( reactions, 20, 80, 10 )
+        reb_grade += gfr( reactions, 1, 80, 10 )
         if reactions < 30:
             reb_agg.add_skill("Has a hard time reacting to the ball once it hits the rim.")
         elif reactions < 50:
@@ -726,7 +740,7 @@ class ProPGReport(ScoutingReport):
             reb_agg.add_skill("Easily makes adjustments on the fly to grab difficult boards.")
 
         anticipation = self.this_player.iq["ant"]
-        reb_grade += gfr( anticipation, 20, 80, 10 )
+        reb_grade += gfr( anticipation, 1, 80, 10 )
         if anticipation < 30:
             reb_agg.add_skill("Shows little to no anticipation for the ball.")
         elif anticipation < 50:
@@ -737,7 +751,7 @@ class ProPGReport(ScoutingReport):
             reb_agg.add_skill("Knows exactly where to be to have the best chance of securing the rebound.")
 
         aggressiveness = self.this_player.men["agg"]
-        reb_grade += gfr( aggressiveness, 20, 80, 10 )
+        reb_grade += gfr( aggressiveness, 1, 80, 10 )
         if aggressiveness < 30:
             reb_agg.add_skill("Avoids contact whenever possible when rebounding.")
         elif aggressiveness < 50:
@@ -748,7 +762,7 @@ class ProPGReport(ScoutingReport):
             reb_agg.add_skill("Fearless in his pursuit of difficult rebounds.")
 
         motor = self.this_player.men["mtr"]
-        reb_grade += gfr( motor, 20, 80, 10 )
+        reb_grade += gfr( motor, 1, 80, 10 )
         if motor < 30:
             reb_agg.add_skill("Gives up on rebounds that aren't near him.")
         elif motor < 50:
