@@ -223,3 +223,27 @@ temp18 = Template("temp18", "SF", "None", 50, [  # Luol Deng, Versatile SF
     45, 60, 55, 60, 40, 35, 65
 ])
 template_list.append(temp18)
+
+temp19 = Template("temp19", "SG", "SF", 75, [  # Jimmy Butler, All-Star Wing, good defense
+    79.75, 0.9969, 2.786,
+    70, 70, 55, 60, 50, 40, 40, 80, 45, 50,
+    70, 65, 75, 70, 90, 75,
+    60, 80, 50, 75, 45, 40, 85
+])
+template_list.append(temp19)
+
+temp20 = Template("temp20", "SG", "SF", 70, [  # Klay Thompson, All-Star Wing, great shooting
+    79.25, 1.022, 2.594,
+    90, 40, 45, 50, 40, 45, 35, 75, 40, 35,
+    65, 60, 65, 60, 75, 70,
+    60, 80, 80, 75, 40, 35, 80 
+])
+template_list.append(temp20)
+
+temp21 = Template("temp21", "SG", "SF", 80, [  # Kawhi Leonard, GOAT wing defender
+    79, 1.101, 2.878,
+    80, 55, 50, 65, 50, 50, 45, 90, 45, 50,
+    75, 80, 75, 75, 85, 85,
+    65, 95, 65, 90, 40, 35, 90
+])
+template_list.append(temp21)

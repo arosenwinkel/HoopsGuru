@@ -1,0 +1,32 @@
+height
+wingspan factor
+weight factor
+
+# fundamental skills
+rng = range
+lay = layup
+ofw = offensive footwork
+tou = touch
+hnd = handling
+box = boxout
+scn = set screen
+dfw = defensive footwork
+pas = passing
+off = off-hand
+
+# athleticism
+qui = quickness
+vrt = vertical leap
+str = strength
+spd = speed
+fit = fitness
+coo = coordination
+
+# basketball iq
+dec = decisions
+rct = reaction time
+obl = off-ball movement
+ant = anticipation
+vis = vision
+crt = creativity
+foc = focus
