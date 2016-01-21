@@ -36,12 +36,19 @@ class State:  # what is instantiated when the user opens the game
             print()
             print()
 
-    def scout(self):
-        for i in range(1, 1000+1):
+    def print(self):
+        for i in range(1, 100+1):
             this_p = self.db.read_player(i)
             s = Scouting.scout_pro_primary(this_p)
             s.scout(True)
             s.print_simple()
+
+    def scout(self):
+        for i in range(1, 100+1):
+            this_p = self.db.read_player(i)
+            s = Scouting.scout_pro_primary(this_p)
+            s.scout(True)
+            s.print()
 
     def new_game(self):  # create a new save
         while True:
@@ -131,7 +138,7 @@ class State:  # what is instantiated when the user opens the game
             if self.db_loaded:
                 print("DB Loaded: {}".format(self.db_name))
             print("Please enter a command.")
-            print("Available commands: (N)ew Game | (L)oad Game | (D)elete Game | (P)rint | (Q)uit")
+            print("Available commands: (N)ew Game | (L)oad Game | (D)elete Game | (S)cout | (P)rint | (Q)uit")
             response = input()
 
             if response in "Nn":  # dispatcher
@@ -152,9 +159,15 @@ class State:  # what is instantiated when the user opens the game
 
             elif response in "Pp":
                 if self.db_loaded:
-                    self.scout()
+                    self.print()
                 else:
                     print("No DB loaded. Please load a database before printing.")
+
+            elif response in "Ss":
+                if self.db_loaded:
+                    self.scout()
+                else:
+                    print("No DB loaded. Please load a database before scouting.")
 
             elif response in "dD":
                 self.delete_game()
