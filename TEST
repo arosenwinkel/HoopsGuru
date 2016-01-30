@@ -1,5 +1,5 @@
 #!/bin/bash
 
-python3 main.py | tee test.txt
+python3 ./source/main.py | tee ./log/test.txt
 
 rm *.univ
