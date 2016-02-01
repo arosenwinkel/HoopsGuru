@@ -5,6 +5,7 @@ import os
 import os.path
 import utilities
 import Scouting
+import Drafting
 
 
 class State:  # what is instantiated when the user opens the game
@@ -61,6 +62,7 @@ class State:  # what is instantiated when the user opens the game
                 print("Game saved as '{}'".format(dbname))  # confirmation
                 self.db_name = dbname
                 self.db_loaded = True
+
                 break
             else:
                 print("'{}' already exists.".format(dbname))  # error
@@ -153,6 +155,10 @@ class State:  # what is instantiated when the user opens the game
                 print("Writing players to the database...", end="")
                 self.db.write_all()  # using this function to write the entire queue at once is much faster
                 print("done.")
+
+                ###begin process for initial drafting
+                init_draft = Drafting.InitialDraft()
+                init_draft.draft(self.db)
 
             elif response in "Ll":
                 self.load_game()

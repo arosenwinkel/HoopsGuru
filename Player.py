@@ -25,3 +25,4 @@ class Player:
         self.eth = 50
         self.tal = 50
         self.inl = 50
+

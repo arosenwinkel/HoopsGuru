@@ -217,6 +217,12 @@ class DB:  # generic DB connection
         this_age = utilities.weighted_choice(template.age_dist_dict)  # pick an age
 
         p = Player.Player()
+
+        name_generator = utilities.NameGenerator()
+        choice = random.randint(0,1)
+        p.fnm = name_generator.generate_first_name(choice)
+        p.lnm = name_generator.generate_last_name(choice)
+
         p.id = new_id
         p.tmp = this_template.template_name
 
