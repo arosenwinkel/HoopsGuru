@@ -13,7 +13,6 @@ class State:  # what is instantiated when the user opens the game
         self.db_loaded = False  # nothing loaded yet, don't start the game
         self.db_name = "No DB Loaded"
         self.db = "NULL"
-	self.path_prefix = "../data/saves/"
 
     def print_roster(self):
         # create some lists for easy printout later....
@@ -59,10 +58,8 @@ class State:  # what is instantiated when the user opens the game
 
             db_name = response + ".univ"
 
-	    db_path = self.path_prefix + db_name
-
-            if not os.path.isfile(db_path):  # if the database does not already exist
-                self.db = RosterManager.DB(db_path)  # make and init a new one
+            if not os.path.isfile(db_name):  # if the database does not already exist
+                self.db = RosterManager.DB(db_name)  # make and init a new one
                 print("Game saved as '{}'".format(db_name))  # confirmation
                 self.db_name = db_name
                 self.db_loaded = True
@@ -74,7 +71,7 @@ class State:  # what is instantiated when the user opens the game
     def load_game(self):  # load a game that already exists
         while True:
             # print out the names of the saved games in this directory
-            files_list = [f for f in os.listdir(self.path_prefix) if f[-5:] == ".univ"]  # files_list = list of save names
+            files_list = [f for f in os.listdir("./") if f[-5:] == ".univ"]  # files_list = list of save names
             if len(files_list):  # if there are saved games
                 print("Saved games in this directory: {}".format(len(files_list)))
                 for f in files_list:
@@ -91,10 +88,9 @@ class State:  # what is instantiated when the user opens the game
 
             if db_name[-5:] != ".univ":
                 db_name += ".univ"
-	
-            db_path = self.path_prefix + db_name
-            if os.path.isfile(db_path):  # if the db exists
-                self.db = RosterManager.DB(db_path)  # connect to it (not create it)
+
+            if os.path.isfile(db_name):  # if the db exists
+                self.db = RosterManager.DB(db_name)  # connect to it (not create it)
                 print("'{}' loaded successfully.".format(db_name))
                 self.db_name = db_name
                 self.db_loaded = True
@@ -110,7 +106,7 @@ class State:  # what is instantiated when the user opens the game
 
     def delete_game(self):
         while True:
-            files_list = [f for f in os.listdir(self.path_prefix) if f[-5:] == ".univ"]  # files_list = list of save names
+            files_list = [f for f in os.listdir("./") if f[-5:] == ".univ"]  # files_list = list of save names
             if len(files_list):  # if there are saved games
                 print("Saved games in this directory: {}".format(len(files_list)))
                 for f in files_list:
