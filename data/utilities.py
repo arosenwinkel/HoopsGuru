@@ -39,7 +39,7 @@ class NameGenerator:
 			,"Joey","Ross","Chandler","Frank","Larry","Ted","Steven","Keith","Kyle","Corey",
             "Hugh","Gary","Ross","Wayne","Josh","Jon","Mike","Micah","Paul","Al","Bill",
             "Titus","Lissiane","Timo","Yassine","Federico","Tyson","Ty","Bruno","Chris"
-            ,"Chris","Mike","John","Josh"]
+            ,"Chris","Mike","John","Josh", "Volcano"]
 
         self.white_last_names = ["James","Michaels","Rosenberg",
 			"Heidi","Richards","Jordan","Wilson","Hill","Stoffels","Swanson"
