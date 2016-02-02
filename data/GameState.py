@@ -84,7 +84,7 @@ class State:  # what is instantiated when the user opens the game
                     break
 
             print("Please enter the name of a saved game.")
-            dbname = input()
+            db_name = input()
 
             if db_name[-5:] != ".univ":
                 db_name += ".univ"
@@ -132,7 +132,7 @@ class State:  # what is instantiated when the user opens the game
                         self.db_loaded = False  # nothing loaded yet, don't start the game
                         self.db_name = "No DB Loaded"
                         self.db = "NULL"
-                    os.remove(self.path_prefix + response)
+                    os.remove(response)
                     break
                 else:
                     print("{} is not present in the directory.".format(response))

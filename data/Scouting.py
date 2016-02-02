@@ -121,6 +121,9 @@ class ScoutingReport:
         print("Height: {}, Wingspan: {}, Weight: {} lbs.".format(repr_length(self.this_player.hgt), 
             repr_length(self.this_player.wng), self.this_player.wgt))
 
+        this_ovr = self.this_player.overall_agg
+        print("Overall: {} | {} | {}".format(int(this_ovr.agg_grade), letter_grade(this_ovr.agg_grade), this_ovr.agg_report))
+
         self.aggs = sorted(self.aggs, key=lambda a: a.entropy, reverse=True)  # sort by entropy of grades
         for a in self.aggs:
             a.print()
@@ -185,6 +188,7 @@ class ProPGReport(ScoutingReport):
 
         size_agg.grade(size_grade)
         self.aggs.append(size_agg)
+        self.this_player.agg["sze"] = size_grade
 
         ''' ATHLETICISM AGGREGATE '''
         ath_agg = Aggregate("Athleticism")
@@ -264,6 +268,7 @@ class ProPGReport(ScoutingReport):
 
         ath_agg.grade(ath_grade)
         self.aggs.append(ath_agg)
+        self.this_player.agg["ath"] = ath_grade
 
         ''' SHOOTING AGGREGATE '''
         # Height, range, off-ball, consistency
@@ -341,6 +346,7 @@ class ProPGReport(ScoutingReport):
 
         shoot_agg.grade(shoot_grade)
         self.aggs.append(shoot_agg)
+        self.this_player.agg["sht"] = shoot_grade
 
 
         ''' ATTACKING AGGREGATE '''
@@ -473,6 +479,7 @@ class ProPGReport(ScoutingReport):
 
         att_agg.grade(att_grade)
         self.aggs.append(att_agg)
+        self.this_player.agg["att"] = att_grade
 
         ''' PLAYMAKING AGGREGATE '''
         # passing, handling, decision making, anticipation, court vision, creativity, ego
@@ -573,6 +580,7 @@ class ProPGReport(ScoutingReport):
 
         pmk_agg.grade(pmk_grade)
         self.aggs.append(pmk_agg)
+        self.this_player.agg["pmk"] = pmk_grade
 
 
         ''' PERIMETER DEFENSE AGGREGATE '''
@@ -733,6 +741,7 @@ class ProPGReport(ScoutingReport):
 
         pmd_agg.grade(pmd_grade)
         self.aggs.append(pmd_agg)
+        self.this_player.agg["pmd"] = pmd_grade
 
         ''' REBOUNDING AGGREGATE '''
         # wingspan, boxout, vertical, strength, reactions, anticipation, aggressiveness, motor
@@ -850,11 +859,36 @@ class ProPGReport(ScoutingReport):
 
         reb_agg.grade(reb_grade)
         self.aggs.append(reb_agg)
+        self.this_player.agg["reb"] = reb_grade
 
         ''' MENTAL AGGREGATE '''
 
 
         ''' DURABILITY AGGREGATE '''
+
+        ovr_agg = Aggregate("Overall")
+        ovr_grade = 0
+
+        ovr_grade += size_grade * .1 + ath_grade * .1 + shoot_grade * .2
+        ovr_grade += pmk_grade * .3 + att_grade * .2 + pmd_grade * .1
+        ovr_grade += reb_grade * .1
+
+        if v:
+            if ovr_grade < 20:
+                ovr_agg.agg_report = "Bench warmer."
+            elif ovr_grade < 40:
+                ovr_agg.agg_report = "Bench player."
+            elif ovr_grade < 60:
+                ovr_agg.agg_report = "Average player."
+            elif ovr_grade < 80:
+                ovr_agg.agg_report = "All-Star player."
+            elif ovr_grade < 90:
+                ovr_agg.agg_report = "All-League player."
+            else:
+                ovr_agg.agg_report = "All time great."
+
+        ovr_agg.grade(ovr_grade)
+        self.this_player.overall_agg = ovr_agg
 
         # Grade basic stats last: Technique, Intangible, Physical, Potential
         
@@ -907,6 +941,7 @@ class ProSGReport(ScoutingReport):
 
         size_agg.grade(size_grade)
         self.aggs.append(size_agg)
+        self.this_player.agg["sze"] = size_grade
 
         ''' ATHLETICISM AGGREGATE '''
         ath_agg = Aggregate("Athleticism")
@@ -982,6 +1017,7 @@ class ProSGReport(ScoutingReport):
 
         ath_agg.grade(ath_grade)
         self.aggs.append(ath_agg)
+        self.this_player.agg["ath"] = ath_grade
 
         ''' SHOOTING AGGREGATE '''
         # Height, range, off-ball, consistency
@@ -1059,6 +1095,7 @@ class ProSGReport(ScoutingReport):
 
         shoot_agg.grade(shoot_grade)
         self.aggs.append(shoot_agg)
+        self.this_player.agg["sht"] = shoot_grade
 
 
         ''' ATTACKING AGGREGATE '''
@@ -1191,6 +1228,7 @@ class ProSGReport(ScoutingReport):
 
         att_agg.grade(att_grade)
         self.aggs.append(att_agg)
+        self.this_player.agg["att"] = att_grade
 
         ''' PLAYMAKING AGGREGATE '''
         # passing, handling, decision making, anticipation, court vision, creativity, ego
@@ -1284,6 +1322,7 @@ class ProSGReport(ScoutingReport):
 
         pmk_agg.grade(pmk_grade)
         self.aggs.append(pmk_agg)
+        self.this_player.agg["pmk"] = pmk_grade
 
 
         ''' PERIMETER DEFENSE AGGREGATE '''
@@ -1444,6 +1483,7 @@ class ProSGReport(ScoutingReport):
 
         pmd_agg.grade(pmd_grade)
         self.aggs.append(pmd_agg)
+        self.this_player.agg["pmd"] = pmd_grade
 
         ''' REBOUNDING AGGREGATE '''
         # wingspan, boxout, vertical, strength, reactions, anticipation, aggressiveness, motor
@@ -1561,11 +1601,36 @@ class ProSGReport(ScoutingReport):
 
         reb_agg.grade(reb_grade)
         self.aggs.append(reb_agg)
+        self.this_player.agg["reb"] = reb_grade
 
         ''' MENTAL AGGREGATE '''
 
 
         ''' DURABILITY AGGREGATE '''
+
+        ovr_agg = Aggregate("Overall")
+        ovr_grade = 0
+
+        ovr_grade += size_grade * .2 + ath_grade * .1 + shoot_grade * .2
+        ovr_grade += pmk_grade * .1 + att_grade * .2 + pmd_grade * .1
+        ovr_grade += reb_grade * .1
+
+        if v:
+            if ovr_grade < 20:
+                ovr_agg.agg_report = "Bench warmer."
+            elif ovr_grade < 40:
+                ovr_agg.agg_report = "Bench player."
+            elif ovr_grade < 60:
+                ovr_agg.agg_report = "Average player."
+            elif ovr_grade < 80:
+                ovr_agg.agg_report = "All-Star player."
+            elif ovr_grade < 90:
+                ovr_agg.agg_report = "All-League player."
+            else:
+                ovr_agg.agg_report = "All time great."
+
+        ovr_agg.grade(ovr_grade)
+        self.this_player.overall_agg = ovr_agg
 
         # Grade basic stats last: Technique, Intangible, Physical, Potential
 
@@ -1617,6 +1682,7 @@ class ProSFReport(ScoutingReport):
 
         size_agg.grade(size_grade)
         self.aggs.append(size_agg)
+        self.this_player.agg["sze"] = size_grade
 
         ''' ATHLETICISM AGGREGATE '''
         ath_agg = Aggregate("Athleticism")
@@ -1692,6 +1758,7 @@ class ProSFReport(ScoutingReport):
 
         ath_agg.grade(ath_grade)
         self.aggs.append(ath_agg)
+        self.this_player.agg["ath"] =ath_grade
 
         ''' SHOOTING AGGREGATE '''
         # Height, range, off-ball, consistency
@@ -1769,6 +1836,7 @@ class ProSFReport(ScoutingReport):
 
         shoot_agg.grade(shoot_grade)
         self.aggs.append(shoot_agg)
+        self.this_player.agg["sht"] = shoot_grade
 
 
         ''' ATTACKING AGGREGATE '''
@@ -1901,6 +1969,7 @@ class ProSFReport(ScoutingReport):
 
         att_agg.grade(att_grade)
         self.aggs.append(att_agg)
+        self.this_player.agg["att"] = att_grade
 
         ''' PLAYMAKING AGGREGATE '''
         # passing, handling, decision making, anticipation, court vision, creativity, ego
@@ -1994,6 +2063,7 @@ class ProSFReport(ScoutingReport):
 
         pmk_agg.grade(pmk_grade)
         self.aggs.append(pmk_agg)
+        self.this_player.agg["pmk"] = pmk_grade
 
 
         ''' PERIMETER DEFENSE AGGREGATE '''
@@ -2154,6 +2224,7 @@ class ProSFReport(ScoutingReport):
 
         pmd_agg.grade(pmd_grade)
         self.aggs.append(pmd_agg)
+        self.this_player.agg["pmd"] = pmd_grade
 
         ''' REBOUNDING AGGREGATE '''
         # wingspan, boxout, vertical, strength, reactions, anticipation, aggressiveness, motor
@@ -2271,11 +2342,36 @@ class ProSFReport(ScoutingReport):
 
         reb_agg.grade(reb_grade)
         self.aggs.append(reb_agg)
+        self.this_player.agg["reb"] = reb_grade
 
         ''' MENTAL AGGREGATE '''
 
 
         ''' DURABILITY AGGREGATE '''
+
+        ovr_agg = Aggregate("Overall")
+        ovr_grade = 0
+
+        ovr_grade += size_grade * .2 + ath_grade * .2 + shoot_grade * .15
+        ovr_grade += pmk_grade * .05 + att_grade * .2 + pmd_grade * .1
+        ovr_grade += reb_grade * .1
+
+        if v:
+            if ovr_grade < 20:
+                ovr_agg.agg_report = "Bench warmer."
+            elif ovr_grade < 40:
+                ovr_agg.agg_report = "Bench player."
+            elif ovr_grade < 60:
+                ovr_agg.agg_report = "Average player."
+            elif ovr_grade < 80:
+                ovr_agg.agg_report = "All-Star player."
+            elif ovr_grade < 90:
+                ovr_agg.agg_report = "All-League player."
+            else:
+                ovr_agg.agg_report = "All time great."
+
+        ovr_agg.grade(ovr_grade)
+        self.this_player.overall_agg = ovr_agg
 
         # Grade basic stats last: Technique, Intangible, Physical, Potential
 
@@ -2327,6 +2423,7 @@ class ProPFReport(ScoutingReport):
 
         size_agg.grade(size_grade)
         self.aggs.append(size_agg)
+        self.this_player.agg["sze"] = size_grade
 
         ''' ATHLETICISM AGGREGATE '''
         ath_agg = Aggregate("Athleticism")
@@ -2402,6 +2499,7 @@ class ProPFReport(ScoutingReport):
 
         ath_agg.grade(ath_grade)
         self.aggs.append(ath_agg)
+        self.this_player.agg["ath"] = ath_grade
 
         ''' SHOOTING AGGREGATE '''
         # Height, range, off-ball, consistency
@@ -2479,6 +2577,7 @@ class ProPFReport(ScoutingReport):
 
         shoot_agg.grade(shoot_grade)
         self.aggs.append(shoot_agg)
+        self.this_player.agg["sht"] = shoot_grade
 
 
         ''' ATTACKING AGGREGATE '''
@@ -2611,6 +2710,7 @@ class ProPFReport(ScoutingReport):
 
         att_agg.grade(att_grade)
         self.aggs.append(att_agg)
+        self.this_player.agg["att"] = att_grade
 
         ''' PLAYMAKING AGGREGATE '''
         # passing, handling, decision making, anticipation, court vision, creativity, ego
@@ -2704,13 +2804,14 @@ class ProPFReport(ScoutingReport):
 
         pmk_agg.grade(pmk_grade)
         self.aggs.append(pmk_agg)
+        self.this_player.agg["pmk"] = pmk_grade
 
 
-        ''' PERIMETER DEFENSE AGGREGATE '''
+        ''' HELP DEFENSE AGGREGATE '''
         # Def footwork, quickness, vertical, strength, fitness, coordination, decisions, reactions, anticipation,
         # focus, motor, wingspan
 
-        pmd_agg = Aggregate("Perimeter Defense")
+        pmd_agg = Aggregate("Help Defense")
         pmd_grade = 0
 
         wingspan = self.this_player.wng
@@ -2864,6 +2965,7 @@ class ProPFReport(ScoutingReport):
 
         pmd_agg.grade(pmd_grade)
         self.aggs.append(pmd_agg)
+        self.this_player.agg["pmd"] = pmd_grade
 
         ''' REBOUNDING AGGREGATE '''
         # wingspan, boxout, vertical, strength, reactions, anticipation, aggressiveness, motor
@@ -2981,11 +3083,39 @@ class ProPFReport(ScoutingReport):
 
         reb_agg.grade(reb_grade)
         self.aggs.append(reb_agg)
+        self.this_player.agg["reb"] = reb_grade
 
         ''' MENTAL AGGREGATE '''
 
 
         ''' DURABILITY AGGREGATE '''
+
+        ovr_agg = Aggregate("Overall")
+        ovr_grade = 0
+
+        hlp_grade = pmd_grade
+        ins_grade = att_grade
+
+        ovr_grade += size_grade * .2 + ath_grade * .1 + shoot_grade * .1
+        ovr_grade += pmk_grade * .05
+        ovr_grade += reb_grade * .2 + hlp_grade * .15 + ins_grade * .2
+
+        if v:
+            if ovr_grade < 20:
+                ovr_agg.agg_report = "Bench warmer."
+            elif ovr_grade < 40:
+                ovr_agg.agg_report = "Bench player."
+            elif ovr_grade < 60:
+                ovr_agg.agg_report = "Average player."
+            elif ovr_grade < 80:
+                ovr_agg.agg_report = "All-Star player."
+            elif ovr_grade < 90:
+                ovr_agg.agg_report = "All-League player."
+            else:
+                ovr_agg.agg_report = "All time great."
+
+        ovr_agg.grade(ovr_grade)
+        self.this_player.overall_agg = ovr_agg
 
         # Grade basic stats last: Technique, Intangible, Physical, Potential
 
@@ -3037,6 +3167,7 @@ class ProCReport(ScoutingReport):
 
         size_agg.grade(size_grade)
         self.aggs.append(size_agg)
+        self.this_player.agg["sze"] = size_grade
 
         ''' ATHLETICISM AGGREGATE '''
         ath_agg = Aggregate("Athleticism")
@@ -3112,6 +3243,7 @@ class ProCReport(ScoutingReport):
 
         ath_agg.grade(ath_grade)
         self.aggs.append(ath_agg)
+        self.this_player.agg["ath"] = ath_grade
 
         ''' SHOOTING AGGREGATE '''
         # Height, range, off-ball, consistency
@@ -3189,13 +3321,14 @@ class ProCReport(ScoutingReport):
 
         shoot_agg.grade(shoot_grade)
         self.aggs.append(shoot_agg)
+        self.this_player.agg["sht"] = shoot_grade
 
 
-        ''' ATTACKING AGGREGATE '''
+        ''' INSIDE AGGREGATE '''
         # Height, range, layup, offensive footwork, touch, handling, passing, off-hand, quickness, vertical,
         # strength, aggressiveness
 
-        att_agg = Aggregate("Attacking")
+        att_agg = Aggregate("Inside Offense")
         att_grade = 0
 
         att_grade += gfr( height, 79, 85, 10)
@@ -3205,25 +3338,17 @@ class ProCReport(ScoutingReport):
             elif height > 83:
                 att_agg.add_skill("Height allows him to finish in the paint.")
 
-        layup = self.this_player.fun["lay"]
-        att_grade += gfr( layup, 1, 85, 10 )
-        if v:
-            if layup < 30:
-                att_agg.add_skill("Not skilled enough to finish difficult layups.")
-            elif layup < 50:
-                att_agg.add_skill("Has a hard time converting difficult layups.")
-            elif layup < 80:
-                att_agg.add_skill("Converts difficult layups around defenders.")
-            else:
-                att_agg.add_skill("Uses a variety of acrobatic layups to finish around defenders with ease.")
-
         off_ftw = self.this_player.fun["ofw"]
         att_grade += gfr( off_ftw, 1, 75, 5 )
         if v:
-            if off_ftw < 25:
-                att_agg.add_skill("Poor footwork when finishing in the paint.")
-            elif off_ftw > 50:
-                att_agg.add_skill("Good footwork gives him more opportunities in the paint.")
+            if off_ftw < 30:
+                att_agg.add_skill("Very limited post moves.")
+            elif off_ftw < 50:
+                att_agg.add_skill("Could stand to improve on his post moves.")
+            elif off_ftw < 80:
+                att_agg.add_skill("Uses his strong post moves to set up easy finishes.")
+            else:
+                att_agg.add_skill("Incredible array of post moves set up loads of easy finishes.")
 
         touch = self.this_player.fun["tou"]
         att_grade += gfr( touch, 1, 85, 15 )
@@ -3241,13 +3366,9 @@ class ProCReport(ScoutingReport):
         att_grade += gfr( handling, 1, 75, 15 )
         if v:
             if handling < 30:
-                att_agg.add_skill("Lacks the ball-handling skills necessary to run the offense.")
-            elif handling < 50:
-                att_agg.add_skill("Ball handling could stand to improve.")
-            elif handling < 80:
-                att_agg.add_skill("Smooth handling the ball.")
+                att_agg.add_skill("Has difficulty putting the ball on the floor.")
             else:
-                att_agg.add_skill("Easily loses his man with an array of ball-handling moves.")
+                att_agg.add_skill("No problem putting the ball on the floor.")
 
         off_hand = self.this_player.fun["off"]
         att_grade += gfr( off_hand, 1, 85, 10 )
@@ -3286,14 +3407,16 @@ class ProCReport(ScoutingReport):
                 att_agg.add_skill("Lightning first step allows him to beat his man with ease.")
 
         strength = self.this_player.ath["str"]
-        att_grade += gfr( strength, 1, 60, 10 )
+        att_grade += gfr( strength, 1, 85, 10 )
         if v:
-            if strength < 20:
-                att_agg.add_skill("Too weak to finish through contact.")
-            elif strength < 40:
-                att_agg.add_skill("Uses his strength to finish through smaller defenders.")
+            if strength < 30:
+                att_agg.add_skill("Strength limits his ability to get good post position.")
+            elif strength < 50:
+                att_agg.add_skill("Can sometimes be shut down by stronger opponents.")
+            elif strength < 80:
+                att_agg.add_skill("Uses his strength to bully smaller opponents in the post.")
             else:
-                att_agg.add_skill("Strong enough to finish through larger defenders.")
+                att_agg.add_skill("Able to bully just about anyone in the post.")
 
         aggressiveness = self.this_player.men["agg"]
         att_grade += gfr( aggressiveness, 1, 85, 5 )
@@ -3309,18 +3432,19 @@ class ProCReport(ScoutingReport):
 
         if v:
             if att_grade < 20:
-                att_agg.agg_report = "Very poor finisher."
+                att_agg.agg_report = "Very poor post player."
             elif att_grade < 40:
-                att_agg.agg_report = "Below average finisher."
+                att_agg.agg_report = "Below average post player."
             elif att_grade < 60:
-                att_agg.agg_report = "Average finisher."
+                att_agg.agg_report = "Average post player."
             elif att_grade < 80:
-                att_agg.agg_report = "Skilled finisher."
+                att_agg.agg_report = "Skilled post player."
             else:
-                att_agg.agg_report = "Fantastic finisher around the rim."
+                att_agg.agg_report = "Fantastic post player."
 
         att_agg.grade(att_grade)
         self.aggs.append(att_agg)
+        self.this_player.agg["att"] = att_grade
 
         ''' PLAYMAKING AGGREGATE '''
         # passing, handling, decision making, anticipation, court vision, creativity, ego
@@ -3329,28 +3453,24 @@ class ProCReport(ScoutingReport):
         pmk_grade = 0
 
         passing = self.this_player.fun["pas"]
-        pmk_grade += gfr( passing, 1, 75, 20 )
+        pmk_grade += gfr( passing, 1, 50, 20 )
         if v:
             if passing < 30:
-                pmk_agg.add_skill("Passing ability really limits ability to run the offense.")
-            elif passing < 50:
                 pmk_agg.add_skill("Only an adequate passer, can struggle making the simple play.")
-            elif passing < 80:
-                pmk_agg.add_skill("No problem making difficult passes.")
+            elif passing < 50:
+                pmk_agg.add_skill("Passes out of the post to set up easy looks.")
             else:
-                pmk_agg.add_skill("Uses impressive arsenal of passes to distribute the ball.")
+                pmk_agg.add_skill("Excellent passer for his size.")
 
         handling = self.this_player.fun["hnd"]
-        pmk_grade += gfr( handling, 1, 85, 10 )
+        pmk_grade += gfr( handling, 1, 50, 10 )
         if v:
-            if handling < 30:
+            if handling < 20:
                 pmk_agg.add_skill("Limited ball-handler.")
             elif handling < 50:
                 pmk_agg.add_skill("Average ball-handling ability.")
-            elif handling < 80:
-                pmk_agg.add_skill("Uses ball-handling ability to create open shots for himself and others.")
             else:
-                pmk_agg.add_skill("Uses incredible ball-handling ability to break ankles with ease.")
+                pmk_agg.add_skill("Very good ball-handling for his size.")
 
         decisions = self.this_player.iq["dec"]
         pmk_grade += gfr( decisions, 1, 85, 20 )
@@ -3394,7 +3514,7 @@ class ProCReport(ScoutingReport):
             if ego < 30:
                 pmk_agg.add_skill("Notorious black hole for the ball.")
             elif ego < 50:
-                pmk_agg.add_skill("Tends to over-dribble.")
+                pmk_agg.add_skill("Tends to hold the ball.")
             elif ego < 80:
                 pmk_agg.add_skill("Doesn't let desire to score come before the team.")
             else:
@@ -3410,24 +3530,25 @@ class ProCReport(ScoutingReport):
             elif pmk_grade < 80:
                 pmk_agg.agg_report = "Skilled playmaker."
             else:
-                pmk_agg.agg_report = "Maestro of the half-court offense."
+                pmk_agg.agg_report = "Natural point-center."
 
         pmk_agg.grade(pmk_grade)
         self.aggs.append(pmk_agg)
+        self.this_player.agg["pmk"] = pmk_grade
 
 
-        ''' PERIMETER DEFENSE AGGREGATE '''
+        ''' HELP DEFENSE AGGREGATE '''
         # Def footwork, quickness, vertical, strength, fitness, coordination, decisions, reactions, anticipation,
         # focus, motor, wingspan
 
-        pmd_agg = Aggregate("Perimeter Defense")
+        pmd_agg = Aggregate("Help Defense")
         pmd_grade = 0
 
         wingspan = self.this_player.wng
         pmd_grade += gfr( wingspan, 82, 90, 15)
         if v:
             if wingspan < 84:
-                pmd_agg.add_skill("Length greatly limits ability as a perimeter defender.")
+                pmd_agg.add_skill("Length greatly limits ability to contest perimeter shots.")
             elif wingspan < 88:
                 pass
             elif wingspan < 90:
@@ -3506,25 +3627,25 @@ class ProCReport(ScoutingReport):
         pmd_grade += gfr( decisions, 1, 85, 5 )
         if v:
             if decisions < 30:
-                pmd_agg.add_skill("Gambles for steals, giving up big plays.")
+                pmd_agg.add_skill("Poor decision-making when guarding the pick and roll.")
             elif decisions < 50:
                 pmd_agg.add_skill("Sometimes displays poor decision making.")
             elif decisions < 80:
                 pmd_agg.add_skill("Displays good decision making on defense.")
             else:
-                pmd_agg.add_skill("Always knows when to play it safe and when to go for big plays.")
+                pmd_agg.add_skill("Consistently makes great decisions when defending the pick and roll.")
 
         reactions = self.this_player.iq["rct"]
         pmd_grade += gfr( reactions, 1, 85, 15 )
         if v:
             if reactions < 30:
-                pmd_agg.add_skill("Usually the last player on the court to notice loose balls.")
+                pmd_agg.add_skill("Rarely reacts in time to protect the rim.")
             elif reactions < 50:
-                pmd_agg.add_skill("Sometimes a step slow reacting to opponents.")
+                pmd_agg.add_skill("Sometimes a step slow sliding to protect the rim.")
             elif reactions < 80:
-                pmd_agg.add_skill("Reacts well to quick opponents.")
+                pmd_agg.add_skill("Reacts well to driving opponents.")
             else:
-                pmd_agg.add_skill("Able to seamlessly mirror opponents movements on defense.")
+                pmd_agg.add_skill("Very quick to react to drives to the rim.")
 
         anticipation = self.this_player.iq["ant"]
         pmd_grade += gfr( anticipation, 1, 85, 15 )
@@ -3534,7 +3655,7 @@ class ProCReport(ScoutingReport):
             elif anticipation < 50:
                 pmd_agg.add_skill("Sometimes fails to anticipate, leaving him out of position.")
             elif anticipation < 80:
-                pmd_agg.add_skill("Anticipates steals well.")
+                pmd_agg.add_skill("Anticipates drives to the rim well.")
             else:
                 pmd_agg.add_skill("Always in the right place at the right time on defense.")
 
@@ -3562,18 +3683,19 @@ class ProCReport(ScoutingReport):
 
         if v:
             if pmd_grade < 20:
-                pmd_agg.agg_report = "Limited perimeter defense."
+                pmd_agg.agg_report = "Limited help defense."
             elif pmd_grade < 40:
-                pmd_agg.agg_report = "Below average perimeter defense."
+                pmd_agg.agg_report = "Below average help defense."
             elif pmd_grade < 60:
-                pmd_agg.agg_report = "Average perimeter defender."
+                pmd_agg.agg_report = "Average help defender."
             elif pmd_grade < 80:
-                pmd_agg.agg_report = "Skilled perimeter defender."
+                pmd_agg.agg_report = "Skilled help defender."
             else:
-                pmd_agg.agg_report = "Lockdown perimeter defender."
+                pmd_agg.agg_report = "Lockdown help defender."
 
         pmd_agg.grade(pmd_grade)
         self.aggs.append(pmd_agg)
+        self.this_player.agg["pmd"] = pmd_grade
 
         ''' REBOUNDING AGGREGATE '''
         # wingspan, boxout, vertical, strength, reactions, anticipation, aggressiveness, motor
@@ -3691,10 +3813,38 @@ class ProCReport(ScoutingReport):
 
         reb_agg.grade(reb_grade)
         self.aggs.append(reb_agg)
+        self.this_player.agg["reb"] = reb_grade
 
         ''' MENTAL AGGREGATE '''
 
 
         ''' DURABILITY AGGREGATE '''
+
+        ovr_agg = Aggregate("Overall")
+        ovr_grade = 0
+
+        hlp_grade = pmd_grade
+        ins_grade = att_grade
+
+        ovr_grade += size_grade * .2 + ath_grade * .1 + shoot_grade * .1
+        ovr_grade += pmk_grade * .05
+        ovr_grade += reb_grade * .2 + hlp_grade * .15 + ins_grade * .2
+
+        if v:
+            if ovr_grade < 20:
+                ovr_agg.agg_report = "Bench warmer."
+            elif ovr_grade < 40:
+                ovr_agg.agg_report = "Bench player."
+            elif ovr_grade < 60:
+                ovr_agg.agg_report = "Average player."
+            elif ovr_grade < 80:
+                ovr_agg.agg_report = "All-Star player."
+            elif ovr_grade < 90:
+                ovr_agg.agg_report = "All-League player."
+            else:
+                ovr_agg.agg_report = "All time great."
+
+        ovr_agg.grade(ovr_grade)
+        self.this_player.overall_agg = ovr_agg
 
         # Grade basic stats last: Technique, Intangible, Physical, Potential

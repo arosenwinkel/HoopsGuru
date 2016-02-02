@@ -56,7 +56,9 @@ class DB:  # generic DB connection
                          coo integer, dec integer, rct integer, obl integer, ant integer, vis integer,
                          crt integer, foc integer, agg integer, cmp integer, mtr integer, cns integer,
                          clu integer, drt integer, mat integer, cch integer, dtr integer, ego integer,
-                         ldr integer
+                         ldr integer, sze integer, ath integer, sht integer, att integer, pmk integer,
+                         per integer, reb integer, hlp integer, ins integer, pot integer, men integer,
+                         dur integer, ovr integer
                          )
                 ''')
 
@@ -180,6 +182,34 @@ class DB:  # generic DB connection
         p.men["ldr"] = data_list[i]  # leadership
         i += 1
 
+        # Aggregates
+        p.agg["sze"] = data_list[i]  # size agg
+        i += 1
+        p.agg["ath"] = data_list[i]  # athleticism agg
+        i += 1
+        p.agg["sht"] = data_list[i]  # shooting agg
+        i += 1
+        p.agg["att"] = data_list[i]  # attacking agg
+        i += 1
+        p.agg["pmk"] = data_list[i]  # playmaking agg
+        i += 1
+        p.agg["per"] = data_list[i]  # perimeter d agg
+        i += 1
+        p.agg["reb"] = data_list[i]  # rebounding agg
+        i += 1 
+        p.agg["hlp"] = data_list[i]  # help defense agg
+        i += 1
+        p.agg["ins"] = data_list[i]  # inside defense agg
+        i += 1
+        p.agg["pot"] = data_list[i]  # potential agg (just in case)
+        i += 1 
+        p.agg["men"] = data_list[i]  # mental agg
+        i += 1 
+        p.agg["dur"] = data_list[i]  # durability agg
+        i += 1
+        p.agg["ovr"] = data_list[i]  # overall agg
+        i += 1
+
         # tendencies to be added later....
         '''
 
@@ -269,6 +299,21 @@ class DB:  # generic DB connection
         p.men["ego"] = 50  # ego....
         p.men["ldr"] = 50  # leadership
 
+        # init aggs to zero until scouted
+        p.agg["sze"] = 0
+        p.agg["ath"] = 0
+        p.agg["sht"] = 0
+        p.agg["att"] = 0
+        p.agg["pmk"] = 0
+        p.agg["per"] = 0
+        p.agg["reb"] = 0
+        p.agg["hlp"] = 0
+        p.agg["ins"] = 0
+        p.agg["pot"] = 0
+        p.agg["men"] = 0
+        p.agg["dur"] = 0
+        p.agg["ovr"] = 0
+
         # shooting hotspots LEAVE OUT FOR NOW
         # p.sht["rcr"] = "50"  # right corner
         # p.sht["lcr"] = "50"
@@ -287,7 +332,9 @@ class DB:  # generic DB connection
                        p.ath["qui"], p.ath["vrt"], p.ath["str"], p.ath["spd"], p.ath["fit"], p.ath["coo"],
                        p.iq["dec"], p.iq["rct"], p.iq["obl"], p.iq["ant"], p.iq["vis"], p.iq["crt"], p.iq["foc"],
                        p.men["agg"], p.men["cmp"], p.men["mtr"], p.men["cns"], p.men["clu"], p.men["drt"], p.men["mat"],
-                       p.men["cch"], p.men["dtr"], p.men["ego"], p.men["ldr"])
+                       p.men["cch"], p.men["dtr"], p.men["ego"], p.men["ldr"], p.agg["sze"], p.agg["ath"], p.agg["sht"],
+                       p.agg["att"], p.agg["pmk"], p.agg["per"], p.agg["reb"], p.agg["hlp"], p.agg["ins"], p.agg["pot"], 
+                       p.agg["men"], p.agg["dur"], p.agg["ovr"])
 
         self.write_queue.append(player_list)
 
@@ -301,9 +348,10 @@ class DB:  # generic DB connection
                                 "coo, dec, rct, obl, ant, vis , " +
                                 "crt, foc, agg, cmp, mtr, cns , " +
                                 "clu, drt, mat, cch, dtr, ego , " +
-                                "ldr) " +
+                                "ldr, sze, ath, sht, att, pmk , " +
+                                "per, reb, hlp, ins, pot, men, dur, ovr) " +
                                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
-                                "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", p)
+                                "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", p)
 
         self.db_object.commit()
 
@@ -359,5 +407,18 @@ class DB:  # generic DB connection
                             "'" + p.men["cch"] + "'," +
                             "'" + p.men["dtr"] + "'," +
                             "'" + p.men["ego"] + "'," +
-                            "'" + p.men["ldr"] + "')")
+                            "'" + p.men["ldr"] + "'," +
+                            "'" + p.agg["sze"] + "'," +
+                            "'" + p.agg["ath"] + "'," +
+                            "'" + p.agg["sht"] + "'," +
+                            "'" + p.agg["att"] + "'," +
+                            "'" + p.agg["pmk"] + "'," +
+                            "'" + p.agg["per"] + "'," +
+                            "'" + p.agg["reb"] + "'," +
+                            "'" + p.agg["hlp"] + "'," +
+                            "'" + p.agg["ins"] + "'," +
+                            "'" + p.agg["pot"] + "'," +
+                            "'" + p.agg["men"] + "'," +
+                            "'" + p.agg["dur"] + "')")
+        
         '''

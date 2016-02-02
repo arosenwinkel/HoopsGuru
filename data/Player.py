@@ -9,6 +9,8 @@ class Player:
         self.iq = {}  # dict for bbiq attributes
         self.men = {}  # dict for mental attributes
         self.sht = {}  # dict for shooting attributes
+        self.agg = {}
+        self.overall_agg = None
         self.id = 0
         self.fnm = "First"
         self.lnm = "Last"
