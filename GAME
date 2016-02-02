@@ -1,3 +1,5 @@
 #!/bin/bash
 
-python3 ./data/main.py
+cd ./saves
+bash saves_script
+cd ..

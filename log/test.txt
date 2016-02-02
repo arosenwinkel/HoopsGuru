@@ -1,5 +1,0 @@
-Please enter a command.
-Available commands: (N)ew Game | (L)oad Game | (D)elete Game | (S)cout | (P)rint | (Q)uit
-Please enter a name for your save.
-Saving db to: ../data/saves/my_save.univ
-dbname = ../data/saves/my_save.univ

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-python3 ./data/main.py | tee ./log/test.txt
-
-rm ./data/*.univ
+cd ./saves/
+bash saves_script | tee ../log/test.txt
+cd ..
