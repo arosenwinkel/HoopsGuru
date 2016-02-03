@@ -45,11 +45,17 @@ class State:  # what is instantiated when the user opens the game
             s.print_simple()
 
     def scout(self):
+        players = []
+
         for i in range(1, 100+1):
             this_p = self.db.read_player(i)
             s = Scouting.scout_pro_primary(this_p)
             s.scout(True)
             s.print()
+
+            players.append(this_p)
+
+        self.db.update_ovr(players)
 
     def new_game(self):  # create a new save
         while True:

@@ -338,6 +338,18 @@ class DB:  # generic DB connection
 
         self.write_queue.append(player_list)
 
+    def update_ovr(self, player_list):
+        for p in player_list:
+            query = "UPDATE Players SET sze={}, ath={}, sht={}, att={}, pmk={}, per={}, reb={}, hlp={}, ins={},\
+                pot={}, men={}, dur={}, ovr={}\
+                WHERE ID={};".format(p.id, p.agg["sze"], p.agg["ath"], p.agg["sht"], p.agg["att"], 
+                    p.agg["pmk"], p.agg["per"], p.agg["reb"], p.agg["hlp"], p.agg["ins"], p.agg["pot"], p.agg["men"], 
+                    p.agg["dur"], p.agg["ovr"] )
+
+            self.cursor.execute(query)
+
+        self.db_object.commit()
+
     def write_all(self):
         for p in self.write_queue:  # for each player in the write queue....
             self.cursor.execute("INSERT INTO Players(ID, fnm, lst, tm, tmp, ps1, ps2, " +
