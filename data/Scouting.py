@@ -95,7 +95,7 @@ class Aggregate:
     def add_skill(self, s):
         self.skill_reports.append(s)
 
-    def print(self):
+    def print_agg(self):
         print( "{}... {}".format(self.name, letter_grade(self.agg_grade) ) )
         print( self.agg_report )
         for r in self.skill_reports:  # print each skill, indented
@@ -106,10 +106,14 @@ class ScoutingReport:
     def __init__(self, this_player):
         self.this_player = this_player
         self.overall = 0
-        self.basic_stats = {}
+
+        self.basic_stats = {
+            "sze":0, "ath":0, "sht":0, "att":0, "pmk":0, "pmd":0,
+            "reb":0, "hlp":0, "ins":0, "pot":0, "men":0, "dur":0, "ovr":0
+        }
         self.aggs = []
 
-    def print(self):
+    def print_verbose(self):
         print("--- {} {} ---".format(self.this_player.fnm, self.this_player.lnm))
         print("ID:", self.this_player.id)
         print("{} years old".format(self.this_player.age))
@@ -121,12 +125,12 @@ class ScoutingReport:
         print("Height: {}, Wingspan: {}, Weight: {} lbs.".format(repr_length(self.this_player.hgt), 
             repr_length(self.this_player.wng), self.this_player.wgt))
 
-        this_ovr = self.this_player.overall_agg
-        print("Overall: {} | {} | {}".format(int(this_ovr.agg_grade), letter_grade(this_ovr.agg_grade), this_ovr.agg_report))
+        this_ovr = int(self.basic_stats["ovr"])
+        print("Overall: {} | {}".format(this_ovr, letter_grade(this_ovr)))
 
         self.aggs = sorted(self.aggs, key=lambda a: a.entropy, reverse=True)  # sort by entropy of grades
         for a in self.aggs:
-            a.print()
+            a.print_agg()
 
         print()
 
@@ -188,7 +192,8 @@ class ProPGReport(ScoutingReport):
 
         size_agg.grade(size_grade)
         self.aggs.append(size_agg)
-        self.this_player.agg["sze"] = size_grade
+
+        self.basic_stats["sze"] = size_grade
 
         ''' ATHLETICISM AGGREGATE '''
         ath_agg = Aggregate("Athleticism")
@@ -268,7 +273,8 @@ class ProPGReport(ScoutingReport):
 
         ath_agg.grade(ath_grade)
         self.aggs.append(ath_agg)
-        self.this_player.agg["ath"] = ath_grade
+
+        self.basic_stats["ath"] = ath_grade
 
         ''' SHOOTING AGGREGATE '''
         # Height, range, off-ball, consistency
@@ -346,7 +352,7 @@ class ProPGReport(ScoutingReport):
 
         shoot_agg.grade(shoot_grade)
         self.aggs.append(shoot_agg)
-        self.this_player.agg["sht"] = shoot_grade
+        self.basic_stats["sht"] = shoot_grade
 
 
         ''' ATTACKING AGGREGATE '''
@@ -479,7 +485,7 @@ class ProPGReport(ScoutingReport):
 
         att_agg.grade(att_grade)
         self.aggs.append(att_agg)
-        self.this_player.agg["att"] = att_grade
+        self.basic_stats["att"] = att_grade
 
         ''' PLAYMAKING AGGREGATE '''
         # passing, handling, decision making, anticipation, court vision, creativity, ego
@@ -580,7 +586,7 @@ class ProPGReport(ScoutingReport):
 
         pmk_agg.grade(pmk_grade)
         self.aggs.append(pmk_agg)
-        self.this_player.agg["pmk"] = pmk_grade
+        self.basic_stats["pmk"] = pmk_grade
 
 
         ''' PERIMETER DEFENSE AGGREGATE '''
@@ -741,7 +747,7 @@ class ProPGReport(ScoutingReport):
 
         pmd_agg.grade(pmd_grade)
         self.aggs.append(pmd_agg)
-        self.this_player.agg["pmd"] = pmd_grade
+        self.basic_stats["pmd"] = pmd_grade
 
         ''' REBOUNDING AGGREGATE '''
         # wingspan, boxout, vertical, strength, reactions, anticipation, aggressiveness, motor
@@ -859,12 +865,15 @@ class ProPGReport(ScoutingReport):
 
         reb_agg.grade(reb_grade)
         self.aggs.append(reb_agg)
-        self.this_player.agg["reb"] = reb_grade
+        self.basic_stats["reb"] = reb_grade
 
         ''' MENTAL AGGREGATE '''
 
+        self.basic_stats["men"] = 0
 
         ''' DURABILITY AGGREGATE '''
+
+        self.basic_stats["dur"] = 0
 
         ovr_agg = Aggregate("Overall")
         ovr_grade = 0
@@ -888,7 +897,7 @@ class ProPGReport(ScoutingReport):
                 ovr_agg.agg_report = "All time great."
 
         ovr_agg.grade(ovr_grade)
-        self.this_player.overall_agg = ovr_agg
+        self.basic_stats["ovr"] = ovr_grade
 
         # Grade basic stats last: Technique, Intangible, Physical, Potential
         
@@ -941,7 +950,7 @@ class ProSGReport(ScoutingReport):
 
         size_agg.grade(size_grade)
         self.aggs.append(size_agg)
-        self.this_player.agg["sze"] = size_grade
+        self.basic_stats["sze"] = size_grade
 
         ''' ATHLETICISM AGGREGATE '''
         ath_agg = Aggregate("Athleticism")
@@ -1017,7 +1026,7 @@ class ProSGReport(ScoutingReport):
 
         ath_agg.grade(ath_grade)
         self.aggs.append(ath_agg)
-        self.this_player.agg["ath"] = ath_grade
+        self.basic_stats["ath"] = ath_grade
 
         ''' SHOOTING AGGREGATE '''
         # Height, range, off-ball, consistency
@@ -1095,7 +1104,7 @@ class ProSGReport(ScoutingReport):
 
         shoot_agg.grade(shoot_grade)
         self.aggs.append(shoot_agg)
-        self.this_player.agg["sht"] = shoot_grade
+        self.basic_stats["sht"] = shoot_grade
 
 
         ''' ATTACKING AGGREGATE '''
@@ -1228,7 +1237,7 @@ class ProSGReport(ScoutingReport):
 
         att_agg.grade(att_grade)
         self.aggs.append(att_agg)
-        self.this_player.agg["att"] = att_grade
+        self.basic_stats["att"] = att_grade
 
         ''' PLAYMAKING AGGREGATE '''
         # passing, handling, decision making, anticipation, court vision, creativity, ego
@@ -1322,7 +1331,7 @@ class ProSGReport(ScoutingReport):
 
         pmk_agg.grade(pmk_grade)
         self.aggs.append(pmk_agg)
-        self.this_player.agg["pmk"] = pmk_grade
+        self.basic_stats["pmk"] = pmk_grade
 
 
         ''' PERIMETER DEFENSE AGGREGATE '''
@@ -1483,7 +1492,7 @@ class ProSGReport(ScoutingReport):
 
         pmd_agg.grade(pmd_grade)
         self.aggs.append(pmd_agg)
-        self.this_player.agg["pmd"] = pmd_grade
+        self.basic_stats["pmd"] = pmd_grade
 
         ''' REBOUNDING AGGREGATE '''
         # wingspan, boxout, vertical, strength, reactions, anticipation, aggressiveness, motor
@@ -1601,12 +1610,15 @@ class ProSGReport(ScoutingReport):
 
         reb_agg.grade(reb_grade)
         self.aggs.append(reb_agg)
-        self.this_player.agg["reb"] = reb_grade
+        self.basic_stats["reb"] = reb_grade
 
         ''' MENTAL AGGREGATE '''
 
+        self.basic_stats["men"] = 0
 
         ''' DURABILITY AGGREGATE '''
+
+        self.basic_stats["dur"] = 0
 
         ovr_agg = Aggregate("Overall")
         ovr_grade = 0
@@ -1630,7 +1642,7 @@ class ProSGReport(ScoutingReport):
                 ovr_agg.agg_report = "All time great."
 
         ovr_agg.grade(ovr_grade)
-        self.this_player.overall_agg = ovr_agg
+        self.basic_stats["ovr"] = ovr_grade
 
         # Grade basic stats last: Technique, Intangible, Physical, Potential
 
@@ -1682,7 +1694,7 @@ class ProSFReport(ScoutingReport):
 
         size_agg.grade(size_grade)
         self.aggs.append(size_agg)
-        self.this_player.agg["sze"] = size_grade
+        self.basic_stats["sze"] = size_grade
 
         ''' ATHLETICISM AGGREGATE '''
         ath_agg = Aggregate("Athleticism")
@@ -1758,7 +1770,7 @@ class ProSFReport(ScoutingReport):
 
         ath_agg.grade(ath_grade)
         self.aggs.append(ath_agg)
-        self.this_player.agg["ath"] =ath_grade
+        self.basic_stats["ath"] =ath_grade
 
         ''' SHOOTING AGGREGATE '''
         # Height, range, off-ball, consistency
@@ -1836,7 +1848,7 @@ class ProSFReport(ScoutingReport):
 
         shoot_agg.grade(shoot_grade)
         self.aggs.append(shoot_agg)
-        self.this_player.agg["sht"] = shoot_grade
+        self.basic_stats["sht"] = shoot_grade
 
 
         ''' ATTACKING AGGREGATE '''
@@ -1969,7 +1981,7 @@ class ProSFReport(ScoutingReport):
 
         att_agg.grade(att_grade)
         self.aggs.append(att_agg)
-        self.this_player.agg["att"] = att_grade
+        self.basic_stats["att"] = att_grade
 
         ''' PLAYMAKING AGGREGATE '''
         # passing, handling, decision making, anticipation, court vision, creativity, ego
@@ -2063,7 +2075,7 @@ class ProSFReport(ScoutingReport):
 
         pmk_agg.grade(pmk_grade)
         self.aggs.append(pmk_agg)
-        self.this_player.agg["pmk"] = pmk_grade
+        self.basic_stats["pmk"] = pmk_grade
 
 
         ''' PERIMETER DEFENSE AGGREGATE '''
@@ -2224,7 +2236,7 @@ class ProSFReport(ScoutingReport):
 
         pmd_agg.grade(pmd_grade)
         self.aggs.append(pmd_agg)
-        self.this_player.agg["pmd"] = pmd_grade
+        self.basic_stats["pmd"] = pmd_grade
 
         ''' REBOUNDING AGGREGATE '''
         # wingspan, boxout, vertical, strength, reactions, anticipation, aggressiveness, motor
@@ -2342,12 +2354,15 @@ class ProSFReport(ScoutingReport):
 
         reb_agg.grade(reb_grade)
         self.aggs.append(reb_agg)
-        self.this_player.agg["reb"] = reb_grade
+        self.basic_stats["reb"] = reb_grade
 
         ''' MENTAL AGGREGATE '''
 
+        self.basic_stats["men"] = 0
 
         ''' DURABILITY AGGREGATE '''
+
+        self.basic_stats["dur"] = 0
 
         ovr_agg = Aggregate("Overall")
         ovr_grade = 0
@@ -2371,7 +2386,7 @@ class ProSFReport(ScoutingReport):
                 ovr_agg.agg_report = "All time great."
 
         ovr_agg.grade(ovr_grade)
-        self.this_player.overall_agg = ovr_agg
+        self.basic_stats["ovr"] = ovr_grade
 
         # Grade basic stats last: Technique, Intangible, Physical, Potential
 
@@ -2423,7 +2438,7 @@ class ProPFReport(ScoutingReport):
 
         size_agg.grade(size_grade)
         self.aggs.append(size_agg)
-        self.this_player.agg["sze"] = size_grade
+        self.basic_stats["sze"] = size_grade
 
         ''' ATHLETICISM AGGREGATE '''
         ath_agg = Aggregate("Athleticism")
@@ -2499,7 +2514,7 @@ class ProPFReport(ScoutingReport):
 
         ath_agg.grade(ath_grade)
         self.aggs.append(ath_agg)
-        self.this_player.agg["ath"] = ath_grade
+        self.basic_stats["ath"] = ath_grade
 
         ''' SHOOTING AGGREGATE '''
         # Height, range, off-ball, consistency
@@ -2577,7 +2592,7 @@ class ProPFReport(ScoutingReport):
 
         shoot_agg.grade(shoot_grade)
         self.aggs.append(shoot_agg)
-        self.this_player.agg["sht"] = shoot_grade
+        self.basic_stats["sht"] = shoot_grade
 
 
         ''' ATTACKING AGGREGATE '''
@@ -2710,7 +2725,7 @@ class ProPFReport(ScoutingReport):
 
         att_agg.grade(att_grade)
         self.aggs.append(att_agg)
-        self.this_player.agg["att"] = att_grade
+        self.basic_stats["att"] = att_grade
 
         ''' PLAYMAKING AGGREGATE '''
         # passing, handling, decision making, anticipation, court vision, creativity, ego
@@ -2804,7 +2819,7 @@ class ProPFReport(ScoutingReport):
 
         pmk_agg.grade(pmk_grade)
         self.aggs.append(pmk_agg)
-        self.this_player.agg["pmk"] = pmk_grade
+        self.basic_stats["pmk"] = pmk_grade
 
 
         ''' HELP DEFENSE AGGREGATE '''
@@ -2965,7 +2980,7 @@ class ProPFReport(ScoutingReport):
 
         pmd_agg.grade(pmd_grade)
         self.aggs.append(pmd_agg)
-        self.this_player.agg["pmd"] = pmd_grade
+        self.basic_stats["hlp"] = pmd_grade
 
         ''' REBOUNDING AGGREGATE '''
         # wingspan, boxout, vertical, strength, reactions, anticipation, aggressiveness, motor
@@ -3083,12 +3098,16 @@ class ProPFReport(ScoutingReport):
 
         reb_agg.grade(reb_grade)
         self.aggs.append(reb_agg)
-        self.this_player.agg["reb"] = reb_grade
+        self.basic_stats["reb"] = reb_grade
 
         ''' MENTAL AGGREGATE '''
 
+        self.basic_stats["men"] = 0
+
 
         ''' DURABILITY AGGREGATE '''
+
+        self.basic_stats["dur"] = 0
 
         ovr_agg = Aggregate("Overall")
         ovr_grade = 0
@@ -3115,7 +3134,7 @@ class ProPFReport(ScoutingReport):
                 ovr_agg.agg_report = "All time great."
 
         ovr_agg.grade(ovr_grade)
-        self.this_player.overall_agg = ovr_agg
+        self.basic_stats["ovr"] = ovr_grade
 
         # Grade basic stats last: Technique, Intangible, Physical, Potential
 
@@ -3167,7 +3186,7 @@ class ProCReport(ScoutingReport):
 
         size_agg.grade(size_grade)
         self.aggs.append(size_agg)
-        self.this_player.agg["sze"] = size_grade
+        self.basic_stats["sze"] = size_grade
 
         ''' ATHLETICISM AGGREGATE '''
         ath_agg = Aggregate("Athleticism")
@@ -3243,7 +3262,7 @@ class ProCReport(ScoutingReport):
 
         ath_agg.grade(ath_grade)
         self.aggs.append(ath_agg)
-        self.this_player.agg["ath"] = ath_grade
+        self.basic_stats["ath"] = ath_grade
 
         ''' SHOOTING AGGREGATE '''
         # Height, range, off-ball, consistency
@@ -3321,7 +3340,7 @@ class ProCReport(ScoutingReport):
 
         shoot_agg.grade(shoot_grade)
         self.aggs.append(shoot_agg)
-        self.this_player.agg["sht"] = shoot_grade
+        self.basic_stats["sht"] = shoot_grade
 
 
         ''' INSIDE AGGREGATE '''
@@ -3444,7 +3463,7 @@ class ProCReport(ScoutingReport):
 
         att_agg.grade(att_grade)
         self.aggs.append(att_agg)
-        self.this_player.agg["att"] = att_grade
+        self.basic_stats["att"] = att_grade
 
         ''' PLAYMAKING AGGREGATE '''
         # passing, handling, decision making, anticipation, court vision, creativity, ego
@@ -3534,7 +3553,7 @@ class ProCReport(ScoutingReport):
 
         pmk_agg.grade(pmk_grade)
         self.aggs.append(pmk_agg)
-        self.this_player.agg["pmk"] = pmk_grade
+        self.basic_stats["pmk"] = pmk_grade
 
 
         ''' HELP DEFENSE AGGREGATE '''
@@ -3695,7 +3714,7 @@ class ProCReport(ScoutingReport):
 
         pmd_agg.grade(pmd_grade)
         self.aggs.append(pmd_agg)
-        self.this_player.agg["pmd"] = pmd_grade
+        self.basic_stats["hlp"] = pmd_grade
 
         ''' REBOUNDING AGGREGATE '''
         # wingspan, boxout, vertical, strength, reactions, anticipation, aggressiveness, motor
@@ -3813,12 +3832,16 @@ class ProCReport(ScoutingReport):
 
         reb_agg.grade(reb_grade)
         self.aggs.append(reb_agg)
-        self.this_player.agg["reb"] = reb_grade
+        self.basic_stats["reb"] = reb_grade
 
         ''' MENTAL AGGREGATE '''
 
+        self.basic_stats["men"] = 0
+
 
         ''' DURABILITY AGGREGATE '''
+
+        self.basic_stats["dur"] = 0
 
         ovr_agg = Aggregate("Overall")
         ovr_grade = 0
@@ -3845,6 +3868,6 @@ class ProCReport(ScoutingReport):
                 ovr_agg.agg_report = "All time great."
 
         ovr_agg.grade(ovr_grade)
-        self.this_player.overall_agg = ovr_agg
+        self.basic_stats["ovr"] = ovr_grade
 
         # Grade basic stats last: Technique, Intangible, Physical, Potential

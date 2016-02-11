@@ -51,7 +51,9 @@ class State:  # what is instantiated when the user opens the game
             this_p = self.db.read_player(i)
             s = Scouting.scout_pro_primary(this_p)
             s.scout(True)
-            s.print()
+            s.print_verbose()
+
+            this_p.agg = s.basic_stats
 
             players.append(this_p)
 
@@ -102,7 +104,7 @@ class State:  # what is instantiated when the user opens the game
                 self.db_loaded = True
                 break
             else:
-                print("'{}' does not exist. Would you like to create a new save?".format(dbname))  # error
+                print("'{}' does not exist. Would you like to create a new save?".format(db_name))  # error
                 answer = input()
                 if answer in "Yy":
                     self.new_game()

@@ -73,142 +73,18 @@ class DB:  # generic DB connection
         
         p = Player.Player()
 
-        p.id = data_list[i]  # unique player ID
-        i += 1
-        p.fnm = data_list[i]  # first name
-        i += 1
-        p.lnm = data_list[i]  # last name
-        i += 1
-        p.tm = data_list[i]  # player's team
-        i += 1
-        p.tmp = data_list[i]  # player template
-        i += 1
-        p.ps1 = data_list[i]  # primary position
-        i += 1
-        p.ps2 = data_list[i]  # secondary position
-        i += 1
-        p.age = data_list[i]  # age....
-        i += 1
-        p.hgt = data_list[i]  # height (inches)
-        i += 1
-        p.wgt = data_list[i]  # weight (lbs)
-        i += 1
-        p.wng = data_list[i]  # wingspan (inches)
-        i += 1
-        p.fat = data_list[i]  # fatigue
-        i += 1
-        p.mot = data_list[i]  # motivation
-        i += 1
-        p.eth = data_list[i]  # work ethic
-        i += 1
-        p.tal = data_list[i]  # natural talent
-        i += 1
-        p.inl = data_list[i]  # intelligence
-        i += 1
-
-        # fundamental skills
-        p.fun["rng"] = data_list[i]  # shooting range
-        i += 1
-        p.fun["lay"] = data_list[i]  # layup
-        i += 1
-        p.fun["ofw"] = data_list[i]  # offensive footwork
-        i += 1
-        p.fun["tou"] = data_list[i]  # touch
-        i += 1
-        p.fun["hnd"] = data_list[i]  # handling
-        i += 1
-        p.fun["box"] = data_list[i]  # boxout
-        i += 1
-        p.fun["scn"] = data_list[i]  # set screen
-        i += 1
-        p.fun["dfw"] = data_list[i]  # defensive footwork
-        i += 1
-        p.fun["pas"] = data_list[i]  # passing
-        i += 1
-        p.fun["off"] = data_list[i]  # off-hand
-        i += 1
-
-        # athleticism
-        p.ath["qui"] = data_list[i]  # quickness
-        i += 1
-        p.ath["vrt"] = data_list[i]  # vertical leap
-        i += 1
-        p.ath["str"] = data_list[i]  # strength
-        i += 1
-        p.ath["spd"] = data_list[i]  # speed
-        i += 1
-        p.ath["fit"] = data_list[i]  # fitness
-        i += 1
-        p.ath["coo"] = data_list[i]  # coordination
-        i += 1
-
-        # basketball iq
-        p.iq["dec"] = data_list[i]  # decisions
-        i += 1
-        p.iq["rct"] = data_list[i]  # reaction time
-        i += 1
-        p.iq["obl"] = data_list[i]  # off-ball movement
-        i += 1
-        p.iq["ant"] = data_list[i]  # anticipation
-        i += 1
-        p.iq["vis"] = data_list[i]  # vision
-        i += 1
-        p.iq["crt"] = data_list[i]  # creativity
-        i += 1
-        p.iq["foc"] = data_list[i]  # focus
-        i += 1
-
-        # mental attributes
-        p.men["agg"] = data_list[i]  # aggressiveness
-        i += 1
-        p.men["cmp"] = data_list[i]  # composure
-        i += 1
-        p.men["mtr"] = data_list[i]  # motor
-        i += 1
-        p.men["cns"] = data_list[i]  # consistency
-        i += 1
-        p.men["clu"] = data_list[i]  # clutch
-        i += 1
-        p.men["drt"] = data_list[i]  # dirtiness
-        i += 1
-        p.men["mat"] = data_list[i]  # maturity
-        i += 1
-        p.men["cch"] = data_list[i]  # coachability
-        i += 1
-        p.men["dtr"] = data_list[i]  # determination
-        i += 1
-        p.men["ego"] = data_list[i]  # ego....
-        i += 1
-        p.men["ldr"] = data_list[i]  # leadership
-        i += 1
-
-        # Aggregates
-        p.agg["sze"] = data_list[i]  # size agg
-        i += 1
-        p.agg["ath"] = data_list[i]  # athleticism agg
-        i += 1
-        p.agg["sht"] = data_list[i]  # shooting agg
-        i += 1
-        p.agg["att"] = data_list[i]  # attacking agg
-        i += 1
-        p.agg["pmk"] = data_list[i]  # playmaking agg
-        i += 1
-        p.agg["per"] = data_list[i]  # perimeter d agg
-        i += 1
-        p.agg["reb"] = data_list[i]  # rebounding agg
-        i += 1 
-        p.agg["hlp"] = data_list[i]  # help defense agg
-        i += 1
-        p.agg["ins"] = data_list[i]  # inside defense agg
-        i += 1
-        p.agg["pot"] = data_list[i]  # potential agg (just in case)
-        i += 1 
-        p.agg["men"] = data_list[i]  # mental agg
-        i += 1 
-        p.agg["dur"] = data_list[i]  # durability agg
-        i += 1
-        p.agg["ovr"] = data_list[i]  # overall agg
-        i += 1
+        [
+            p.id, p.fnm, p.lnm, p.tm, p.tmp, p.ps1, p.ps2, p.age, p.hgt, p.wgt, p.wng,
+            p.fat, p.mot, p.eth, p.tal, p.inl,
+            p.fun["rng"], p.fun["lay"], p.fun["ofw"], p.fun["tou"], p.fun["hnd"], p.fun["box"],
+            p.fun["scn"], p.fun["dfw"], p.fun["pas"], p.fun["off"],
+            p.ath["qui"], p.ath["vrt"], p.ath["str"], p.ath["spd"], p.ath["fit"], p.ath["coo"],
+            p.iq["dec"], p.iq["rct"], p.iq["obl"], p.iq["ant"], p.iq["vis"], p.iq["crt"], p.iq["foc"],
+            p.men["agg"], p.men["cmp"], p.men["mtr"], p.men["cns"], p.men["clu"], p.men["drt"],
+            p.men["mat"], p.men["cch"], p.men["dtr"], p.men["ego"], p.men["ldr"],
+            p.agg["sze"], p.agg["ath"], p.agg["sht"], p.agg["att"], p.agg["pmk"], p.agg["per"],
+            p.agg["reb"], p.agg["hlp"], p.agg["ins"], p.agg["pot"], p.agg["men"], p.agg["dur"], p.agg["ovr"]
+        ] = data_list
 
         # tendencies to be added later....
         '''
@@ -333,18 +209,18 @@ class DB:  # generic DB connection
                        p.iq["dec"], p.iq["rct"], p.iq["obl"], p.iq["ant"], p.iq["vis"], p.iq["crt"], p.iq["foc"],
                        p.men["agg"], p.men["cmp"], p.men["mtr"], p.men["cns"], p.men["clu"], p.men["drt"], p.men["mat"],
                        p.men["cch"], p.men["dtr"], p.men["ego"], p.men["ldr"], p.agg["sze"], p.agg["ath"], p.agg["sht"],
-                       p.agg["att"], p.agg["pmk"], p.agg["per"], p.agg["reb"], p.agg["hlp"], p.agg["ins"], p.agg["pot"], 
+                       p.agg["att"], p.agg["pmk"], p.agg["pmd"], p.agg["reb"], p.agg["hlp"], p.agg["ins"], p.agg["pot"], 
                        p.agg["men"], p.agg["dur"], p.agg["ovr"])
 
         self.write_queue.append(player_list)
 
     def update_ovr(self, player_list):
         for p in player_list:
-            query = "UPDATE Players SET sze={}, ath={}, sht={}, att={}, pmk={}, per={}, reb={}, hlp={}, ins={},\
-                pot={}, men={}, dur={}, ovr={}\
-                WHERE ID={};".format(p.id, p.agg["sze"], p.agg["ath"], p.agg["sht"], p.agg["att"], 
-                    p.agg["pmk"], p.agg["per"], p.agg["reb"], p.agg["hlp"], p.agg["ins"], p.agg["pot"], p.agg["men"], 
-                    p.agg["dur"], p.agg["ovr"] )
+            query = ("UPDATE Players SET sze={:.0f}, ath={:.0f}, sht={:.0f}, att={:.0f}, pmk={:.0f}, per={:.0f}," +
+                    " reb={:.0f}, hlp={:.0f}, ins={:.0f}, pot={:.0f}, men={:.0f}, dur={:.0f}, ovr={:.0f} "+
+                    "WHERE ID={};").format(p.agg["sze"], p.agg["ath"], p.agg["sht"], p.agg["att"],
+                    p.agg["pmk"], p.agg["pmd"], p.agg["reb"], p.agg["hlp"], p.agg["ins"], p.agg["pot"], p.agg["men"], 
+                    p.agg["dur"], p.agg["ovr"], p.id )
 
             self.cursor.execute(query)
 
@@ -361,76 +237,10 @@ class DB:  # generic DB connection
                                 "crt, foc, agg, cmp, mtr, cns , " +
                                 "clu, drt, mat, cch, dtr, ego , " +
                                 "ldr, sze, ath, sht, att, pmk , " +
-                                "per, reb, hlp, ins, pot, men, dur, ovr) " +
+                                "pmd, reb, hlp, ins, pot, men, dur, ovr) " +
                                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
                                 "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", p)
 
         self.db_object.commit()
 
         self.write_queue = []
-        #  old way below
-        '''
-                            "'" + new_id + "'," +
-                            "'" + p.fnm + "'," +
-                            "'" + p.lnm + "'," +
-                            "'" + p.tm + "'," +
-                            "'" + p.tmp + "'," +
-                            "'" + p.ps1 + "'," +
-                            "'" + p.ps2 + "'," +
-                            "'" + p.age + "'," +
-                            "'" + p.hgt + "'," +
-                            "'" + p.wgt + "'," +
-                            "'" + p.wng + "'," +
-                            "'" + p.fat + "'," +
-                            "'" + p.mot + "'," +
-                            "'" + p.eth + "'," +
-                            "'" + p.tal + "'," +
-                            "'" + p.inl + "'," +
-                            "'" + p.fun["rng"] + "'," +
-                            "'" + p.fun["lay"] + "'," +
-                            "'" + p.fun["ofw"] + "'," +
-                            "'" + p.fun["tou"] + "'," +
-                            "'" + p.fun["hnd"] + "'," +
-                            "'" + p.fun["box"] + "'," +
-                            "'" + p.fun["scn"] + "'," +
-                            "'" + p.fun["dfw"] + "'," +
-                            "'" + p.fun["pas"] + "'," +
-                            "'" + p.fun["off"] + "'," +
-                            "'" + p.ath["qui"] + "'," +
-                            "'" + p.ath["vrt"] + "'," +
-                            "'" + p.ath["str"] + "'," +
-                            "'" + p.ath["spd"] + "'," +
-                            "'" + p.ath["fit"] + "'," +
-                            "'" + p.ath["coo"] + "'," +
-                            "'" + p.iq["dec"] + "'," +
-                            "'" + p.iq["rct"] + "'," +
-                            "'" + p.iq["obl"] + "'," +
-                            "'" + p.iq["ant"] + "'," +
-                            "'" + p.iq["vis"] + "'," +
-                            "'" + p.iq["crt"] + "'," +
-                            "'" + p.iq["foc"] + "'," +
-                            "'" + p.men["agg"] + "'," +
-                            "'" + p.men["cmp"] + "'," +
-                            "'" + p.men["mtr"] + "'," +
-                            "'" + p.men["cns"] + "'," +
-                            "'" + p.men["clu"] + "'," +
-                            "'" + p.men["drt"] + "'," +
-                            "'" + p.men["mat"] + "'," +
-                            "'" + p.men["cch"] + "'," +
-                            "'" + p.men["dtr"] + "'," +
-                            "'" + p.men["ego"] + "'," +
-                            "'" + p.men["ldr"] + "'," +
-                            "'" + p.agg["sze"] + "'," +
-                            "'" + p.agg["ath"] + "'," +
-                            "'" + p.agg["sht"] + "'," +
-                            "'" + p.agg["att"] + "'," +
-                            "'" + p.agg["pmk"] + "'," +
-                            "'" + p.agg["per"] + "'," +
-                            "'" + p.agg["reb"] + "'," +
-                            "'" + p.agg["hlp"] + "'," +
-                            "'" + p.agg["ins"] + "'," +
-                            "'" + p.agg["pot"] + "'," +
-                            "'" + p.agg["men"] + "'," +
-                            "'" + p.agg["dur"] + "')")
-        
-        '''
