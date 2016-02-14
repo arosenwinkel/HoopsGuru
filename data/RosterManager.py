@@ -57,7 +57,7 @@ class DB:  # generic DB connection
                          crt integer, foc integer, agg integer, cmp integer, mtr integer, cns integer,
                          clu integer, drt integer, mat integer, cch integer, dtr integer, ego integer,
                          ldr integer, sze integer, ath integer, sht integer, att integer, pmk integer,
-                         per integer, reb integer, hlp integer, ins integer, pot integer, men integer,
+                         pmd integer, reb integer, hlp integer, ins integer, pot integer, men integer,
                          dur integer, ovr integer
                          )
                 ''')
@@ -82,7 +82,7 @@ class DB:  # generic DB connection
             p.iq["dec"], p.iq["rct"], p.iq["obl"], p.iq["ant"], p.iq["vis"], p.iq["crt"], p.iq["foc"],
             p.men["agg"], p.men["cmp"], p.men["mtr"], p.men["cns"], p.men["clu"], p.men["drt"],
             p.men["mat"], p.men["cch"], p.men["dtr"], p.men["ego"], p.men["ldr"],
-            p.agg["sze"], p.agg["ath"], p.agg["sht"], p.agg["att"], p.agg["pmk"], p.agg["per"],
+            p.agg["sze"], p.agg["ath"], p.agg["sht"], p.agg["att"], p.agg["pmk"], p.agg["pmd"],
             p.agg["reb"], p.agg["hlp"], p.agg["ins"], p.agg["pot"], p.agg["men"], p.agg["dur"], p.agg["ovr"]
         ] = data_list
 
@@ -181,7 +181,7 @@ class DB:  # generic DB connection
         p.agg["sht"] = 0
         p.agg["att"] = 0
         p.agg["pmk"] = 0
-        p.agg["per"] = 0
+        p.agg["pmd"] = 0
         p.agg["reb"] = 0
         p.agg["hlp"] = 0
         p.agg["ins"] = 0
@@ -216,7 +216,7 @@ class DB:  # generic DB connection
 
     def update_ovr(self, player_list):
         for p in player_list:
-            query = ("UPDATE Players SET sze={:.0f}, ath={:.0f}, sht={:.0f}, att={:.0f}, pmk={:.0f}, per={:.0f}," +
+            query = ("UPDATE Players SET sze={:.0f}, ath={:.0f}, sht={:.0f}, att={:.0f}, pmk={:.0f}, pmd={:.0f}," +
                     " reb={:.0f}, hlp={:.0f}, ins={:.0f}, pot={:.0f}, men={:.0f}, dur={:.0f}, ovr={:.0f} "+
                     "WHERE ID={};").format(p.agg["sze"], p.agg["ath"], p.agg["sht"], p.agg["att"],
                     p.agg["pmk"], p.agg["pmd"], p.agg["reb"], p.agg["hlp"], p.agg["ins"], p.agg["pot"], p.agg["men"], 

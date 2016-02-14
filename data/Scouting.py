@@ -139,6 +139,7 @@ class ScoutingReport:
             self.this_player.fnm, self.this_player.lnm, self.this_player.age, self.this_player.ps1,
             self.this_player.ps2, repr_length(self.this_player.hgt), repr_length(self.this_player.wng)
         ))
+        print("Overall:", int(self.basic_stats["ovr"]))
         for a in self.aggs:
             print("{}={}, ".format(a.name, int(a.agg_grade)), end="")
         print()
