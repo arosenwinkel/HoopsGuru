@@ -5,14 +5,25 @@ import os
 import os.path
 import utilities
 import Scouting
+import Team
 import Drafting
-
 
 class State:  # what is instantiated when the user opens the game
     def __init__(self):
         self.db_loaded = False  # nothing loaded yet, don't start the game
         self.db_name = "No DB Loaded"
         self.db = "NULL"
+        self.team_names = ["Detroit","Los Angeles","Chicago",
+                      "Houston","Philadelphia","Phoenix",
+                      "Dallas","Austin","San Francisco",
+                      "Indianapolis","Charlotte","Seattle",
+                      "Portland","Denver","Washington",
+                      "Memphis","Brooklyn","Boston",
+                      "Baltimore","Oklahoma City","Louisville",
+                      "Milwaukee","Sacramento","Atlanta",
+                      "Miami","Cleveland","Oakland",
+                      "Orlando","New York","Salt Lake City"]
+        self.teams = []
 
     def print_roster(self):
         # create some lists for easy printout later....
@@ -47,11 +58,11 @@ class State:  # what is instantiated when the user opens the game
     def scout(self):
         players = []
 
-        for i in range(1, 100+1):
+        for i in range(1, 1000+1):
             this_p = self.db.read_player(i)
             s = Scouting.scout_pro_primary(this_p)
             s.scout(True)
-            s.print_verbose()
+            #s.print_verbose()
 
             this_p.agg = s.basic_stats
 
@@ -146,11 +157,16 @@ class State:  # what is instantiated when the user opens the game
                     print("{} is not present in the directory.".format(response))
 
     def acquire_data(self):  # either create a new save or load one
+
+        for i in self.team_names:
+            team = Team.Team(i)
+            self.teams.append(team)
+
         while True:
             if self.db_loaded:
                 print("DB Loaded: {}".format(self.db_name))
             print("Please enter a command.")
-            print("Available commands: (N)ew Game | (L)oad Game | (D)elete Game | (S)cout | (P)rint | (Q)uit")
+            print("Available commands: (N)ew Game | (L)oad Game | (D)elete Game | (S)cout | (P)rint | (T)eam Roster | (Q)uit")
             response = input()
 
             if response in "Nn":  # dispatcher
@@ -166,9 +182,14 @@ class State:  # what is instantiated when the user opens the game
                 self.db.write_all()  # using this function to write the entire queue at once is much faster
                 print("done.")
 
+                #Alex put this line here.
+                self.scout()
+                #
+
+
                 ###begin process for initial drafting
                 init_draft = Drafting.InitialDraft()
-                init_draft.draft(self.db)
+                init_draft.draft(self.db, self.teams)
 
             elif response in "Ll":
                 self.load_game()
@@ -190,6 +211,12 @@ class State:  # what is instantiated when the user opens the game
 
             elif response in "Qq":
                 break
+
+            elif response in "Tt":
+                if self.db_loaded:
+                    self.teams[0].print_roster(self.db)
+                else:
+                    print("No DB loaded.")
 
         if self.db_loaded:  # game ended, close the db
             self.db.close()
