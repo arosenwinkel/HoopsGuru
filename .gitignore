@@ -1,7 +1,13 @@
 # Hoops Guru .gitignore File
 # 
 # Ignore pycache
-__pycache__
+*.pyc
+
+# Not sure what this is. Maybe pycharm stuff?
+.idea/
+
+# Ignore tilde files
+*~
 
 # don't sync database files
 *.univ
