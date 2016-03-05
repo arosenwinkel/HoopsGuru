@@ -7,6 +7,7 @@ import utilities
 import Scouting
 import Team
 import Drafting
+import GameSim
 
 class State:  # what is instantiated when the user opens the game
     def __init__(self):
@@ -166,7 +167,7 @@ class State:  # what is instantiated when the user opens the game
             if self.db_loaded:
                 print("DB Loaded: {}".format(self.db_name))
             print("Please enter a command.")
-            print("Available commands: (N)ew Game | (L)oad Game | (D)elete Game | (S)cout | (P)rint | (T)eam Roster | (Q)uit")
+            print("Available commands: (N)ew Game | (L)oad Game | (D)elete Game | (S)cout | (P)rint | (T)eam Roster | Sim (G)ame | (Q)uit")
             response = input()
 
             if response in "Nn":  # dispatcher
@@ -217,6 +218,12 @@ class State:  # what is instantiated when the user opens the game
                     self.teams[0].print_roster(self.db)
                 else:
                     print("No DB loaded.")
+
+            elif response in "Gg":
+                if self.db_loaded:
+                    gamesim = GameSim.GameSim()
+                    gamesim.SimGame(self.teams[0],self.teams[1], self.db)
+
 
         if self.db_loaded:  # game ended, close the db
             self.db.close()

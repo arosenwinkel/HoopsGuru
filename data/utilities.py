@@ -39,7 +39,7 @@ class NameGenerator:
 			,"Joey","Ross","Chandler","Frank","Larry","Ted","Steven","Keith","Kyle","Corey",
             "Hugh","Gary","Ross","Wayne","Josh","Jon","Mike","Micah","Paul","Al","Bill",
             "Titus","Lissiane","Timo","Yassine","Federico","Tyson","Ty","Bruno","Chris"
-            ,"Chris","Mike","John","Josh", "Volcano"]
+            ,"Chris","Mike","John","Josh", "Volcano", "David", "Chris", "Chandler", "Ross"]
 
         self.white_last_names = ["James","Michaels","Rosenberg",
 			"Heidi","Richards","Jordan","Wilson","Hill","Stoffels","Swanson"
@@ -47,7 +47,7 @@ class NameGenerator:
 			"Rothenberg","Hanson","Alva","Diekman","Flood","Young","Zimmer","Nash",
 			"Cerave","Spare","Mapa","Battia","Matheson","Olivero"
 			,"Greenland","Samsoni","Lampard","Lampeire","Waker","Atlas","Ayers",
-			"Myers","Atkins","O'Brien","O'Shea","Cameron","Lambert","Napolean",
+			"Myers","Atkins","O'Brien","O'Shea","Cameron","Lambert","Napolean","Cook","Charles"
 			"Murphy","Antinosek","Tosie","Quebec","Towers","Torres","Wang",
 			"Alba","Ferrell","Kodiak","Smith","Jones","Starr","Hart","Hazard"
 			,"O'Hoolihan","Smith","Mili","Reed","Rutho","Powers","Wesleyan","Huud van Roy",
@@ -64,10 +64,10 @@ class NameGenerator:
             "Vulaj","Zimmer","Caldwell","Samaras","Lovelady","Kilburn","Kennedy","Bush",
             "Goodman","Oldman","Badman","Eagel","Bruegger","McCarron","McConnell","Ponch"
             ,"Christoff","Jones","Punch","Treveleyan","Bond","Goiles","O'Doyle","Sandler",
-            "DiMarzio","Shepherd","Martin","Martins","Rodriguez","Werner"]
+            "DiMarzio","Shepherd","Martin","Martins","Rodriguez","Werner","Smith","Baker","Lewis","Cook"]
 
-        self.black_first_names = ["Jamal","Mike","Jameis","Idode",
-			"Darnell","Malik","Trevon","Maurice","DeShawn","Caleb","Gabriel"
+        self.black_first_names = ["Jamal","Mike","Jameis","Idode","Kris","Kyle","Kyle","Kylo","Kile"
+			"Darnell","Malik","Trevon","Maurice","DeShawn","Caleb","Gabriel","Gabe","Grover","Geddy"
 			,"Jayden","Josiah","Jeremiah","Jermaine","Edius","Devon","Levon","DeMarcus",
 			"Bo","Jim","James","JJ","Herbert","DeVonte","Travis","Darius","Levonte",
 			"Marquis","DeMario","Doran","Decovon","Dazhawn","Derick","Demondre","Kobe"
@@ -75,18 +75,21 @@ class NameGenerator:
 			,"LaMarcus","Leandro","Kirk","Will","William","Isaiah","Isaiah","Noah","Adam","Dante","Tim","Corey","Damien",
 			"Zach","Zack","Eric","Darius","Greg","Jonah","Lazarus","Kurt","Brandan","Brandon","Branden","Travis","Darrell","Shawn",
 			"Jay","DeShawn","Greg","Michael","Mike","Ben","Benjamin","Rasheed","Curtis","Golden","Joseph","Moses","Isaiah","Arthur",
-			"Marcus","Izod","Austin","Marshall","Ferg","Greg","CJ","Talib","Youseff","Kirby"]
+			"Marcus","Izod","Austin","Marshall","Ferg","Greg","CJ","Talib","Youseff","Kirby", "Clinton" ,"Hitch","Steve",
+            "John", "Josh", "Peter" ,"Pop" ,"Steve","Drew","Darius","Brian","Davis","Shawn","Shaun","Sean","Shawn","Louis",
+            "Dave","Jon","Abraham","Ahab","Abe","Alex","Rodger","Tucker","Chris","Kris","Abouye","Tavon","Tarik","Rufus"]
 
-        self.black_last_names = ["El Arabi","Scott","Jackson","Brown","Jones",
-			"Johnson","Williams","Scott","Adams","Davis","Montgomery"
+        self.black_last_names = ["El Arabi","Scott","Jackson","Brown","Jones","Watson","Watts","Lewis","Rashawn","Oledipous"
+			"Johnson","Williams","Scott","Adams","Davis","Montgomery","Hovarth","Scott","Brown","Black","White"
 			,"Wade","Chambers","Ferguson","Rice","Tate","Danger","Thomas","Russell","Kerobo",
-			"Boyd","White","Black","Watt","Wattson","Leone","Navier","Oday"
+			"Boyd","White","Black","Watt","Wattson","Leone","Navier","Oday","Ware","Tare","Koch","Martins","Reed","Mariole","Field",
+            "Rivers","Park","Broncus","Stream","Grange","LeTrave","Butus","Yulonge","Harris","Harris","Harris","Thade","Peach","Towns"
 			,"Niles","Marvin","Mendez","Naheim","Marcio","Bryant","Bogues","Toure","Bah","Okeke","Sarr","Morris",
 			"Brown","Jackson","Aldridge","Barbosa","White","Agustin","Butler","Butler","Cousins","Duncan","Durand",
 			"Dedmon","Frye","Ibaka","Joseph","Marion","Morris","Paul","George","Prince","Rubles","Walker","Wright",
 			"Williams","Williams","Watson","Zoumia","Tucker","Scott","Jones","Derulo",
             "Success","Omeryu","Cadamuro","Brolin","Paulson","Brown","Black","White","Green"
-            "Brown","Perry","Smith","Smith","Jones","Rodgers"]
+            "Brown","Perry","Smith","Smith","Jones","Rodgers","Russell","Russel","Jones","Brown"]
 
     def generate_first_name(self, choice):
         if choice == 1:
